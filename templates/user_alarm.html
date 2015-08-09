@@ -3,8 +3,8 @@
 
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Chime</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Chime</title>
   <style type='text/css'>
     ul { list-style: none; }
     #recordingslist audio { display: block; margin-bottom: 10px; }
@@ -13,13 +13,13 @@
 </head>
 <body>
 
-  <h1>Chime: Wake up, together.</h1>
+  <h2>{{ user.first_name }}</h2>
 
   <p>Why wake up to the same beeping every day?</p>
   <p>Record a message for your friends to wake up to</p>
  
 
-<h2>Recordings</h2>
+<h2>Clock goes here</h2>
   <button onclick="startRecording(this);">record</button>
   <button onclick="stopRecording(this);" disabled>stop</button>
   
@@ -27,20 +27,20 @@
   <ul id="recordingslist"></ul>
 
   
-  <h2>Log</h2>
-  <pre id="log"></pre>
+  <!-- <h2>Log</h2>
+  <pre id="log"></pre> -->
 
   <script>
-  function __log(e, data) {
-    log.innerHTML += "\n" + e + " " + (data || '');
-  }
+  // function __log(e, data) {
+    // log.innerHTML += "\n" + e + " " + (data || '');
+  // }
 
   var audio_context;
   var recorder;
 
   function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
-    __log('Media stream created.');
+    // __log('Media stream created.');
 
     // Uncomment if you want the audio to feedback directly
     //input.connect(audio_context.destination);
@@ -48,21 +48,21 @@
      // Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear splitting feedback
     
     recorder = new Recorder(input);
-    __log('Recorder initialised.');
+    // __log('Recorder initialised.');
   }
 
   function startRecording(button) {
     recorder && recorder.record();
     button.disabled = true;
     button.nextElementSibling.disabled = false;
-    __log('Recording...');
+    // __log('Recording...');
   }
 
   function stopRecording(button) {
     recorder && recorder.stop();
     button.disabled = true;
     button.previousElementSibling.disabled = false;
-    __log('Stopped recording.');
+    // __log('Stopped recording.');
     
     // create WAV download link using audio data blob
     sendBlobToServer();
@@ -118,6 +118,7 @@
       });
 
     })
+
     }
 
 
@@ -129,18 +130,22 @@
       window.URL = window.URL || window.webkitURL;
       
       audio_context = new AudioContext;
-      __log('Audio context set up.');
-      __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+      // __log('Audio context set up.');
+      // __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
     } catch (e) {
       alert('No web audio support in this browser!');
     }
     
     navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-      __log('No live audio input: ' + e);
+      // __log('No live audio input: ' + e);
     });
   };
   </script>
 
-  <script src="static/js/lib/recorder.js"></script>
+  <script src="/static/js/lib/recorder.js"></script>
 </body>
 </html>
+
+
+
+

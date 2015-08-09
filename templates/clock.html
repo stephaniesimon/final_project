@@ -1,4 +1,31 @@
-{% extends "layout.html" %}
+<!-- <!DOCTYPE html> -->
+<!-- {% block imports %}
+    <script src="/static/js/recorder.js"></script>
+    <script src="/static/js/recorderFunctions.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row text-center">
+        <h1>Record</h1>
+
+        <button onclick="startRecording(this);">record</button>
+  		<button onclick="stopRecording(this);" disabled>stop</button>
+
+        <div id="recordingslist"></div>
+    </div>
+        <div>
+        	<input type="submit" value="Submit Audio" id="submit-audio" class="button">
+        </div>
+
+    <div class="hidden">
+        <h2>Log</h2>
+        <pre id="log"></pre>
+
+        <div id="info"></div>
+    </div>
+{% endblock %} -->
+
 <!DOCTYPE html>
 
 <html>
@@ -9,7 +36,7 @@
     ul { list-style: none; }
     #recordingslist audio { display: block; margin-bottom: 10px; }
   </style>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  
 </head>
 <body>
 
@@ -19,13 +46,17 @@
   <p>Record a message for your friends to wake up to</p>
  
 
+ <audio controls autoplay>
+ 	<source src="blob:http%3A//localhost%3A5000/af310a1b-d50a-48ca-b5c1-527f11246f26" type="audio/wav">
+ </audio>
+
 <h2>Recordings</h2>
   <button onclick="startRecording(this);">record</button>
   <button onclick="stopRecording(this);" disabled>stop</button>
   
   
   <ul id="recordingslist"></ul>
-
+  
   
   <h2>Log</h2>
   <pre id="log"></pre>
@@ -70,56 +101,31 @@
     recorder.clear();
   }
 
-  // function createDownloadLink() {
-  //   recorder && recorder.exportWAV(function(blob) {
+  function sendBlobToServer() {
+    recorder && recorder.exportWAV(function(blob) {
+    	var formData = new FormData();
 
-  //     //   audio_file = BinaryFileReader.read(blob);
-  //     //   console.log("Audio uploaded");
-  //     // }
-  //     var url = URL.createObjectURL(blob);
-  //     console.log(url);
-  //     var li = document.createElement('li');
-  //     var au = document.createElement('audio');
-  //     var hf = document.createElement('a');
+	    formData.append('file', blob);
+
+	    // var request = new XMLHttpRequest();
+	    // request.open("GET", "/test2");
+	    // request.send(formData);
+
+      // var url = URL.createObjectURL(blob);
+      // var li = document.createElement('li');
+      // var au = document.createElement('audio');
+      // var hf = document.createElement('a');
       
-  //     au.controls = true;
-  //     au.src = url;
-  //     hf.href = url;
-  //     hf.download = new Date().toISOString() + '.wav';
-  //     hf.innerHTML = hf.download;
-  //     li.appendChild(au);
-  //     li.appendChild(hf);
-  //     recordingslist.appendChild(li);
-  //   });
-  // }
-    function sendBlobToServer() {
-      recorder && recorder.exportWAV(function (blob) {
-        console.log(blob);
-        var formData = new FormData();
-
-        formData.append('file', blob, 'test.wav');
-
-        //  function(data){
-        //   console.log("hey!");
-        // });
-
-        $.ajax({
-        url :  "/test2",
-        type: 'POST',
-        data:  formData,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-          console.log("success!");
-        },    
-        error: function() {
-          console.log("failure!");
-        }
-      });
-
-    })
-    }
-
+      // au.controls = true;
+      // au.src = url;
+      // hf.href = url;
+      // hf.download = new Date().toISOString() + '.wav';
+      // hf.innerHTML = hf.download;
+      // li.appendChild(au);
+      // li.appendChild(hf);
+      // recordingslist.appendChild(li);
+    });
+  }
 
   window.onload = function init() {
     try {
@@ -144,3 +150,6 @@
   <script src="static/js/lib/recorder.js"></script>
 </body>
 </html>
+
+
+

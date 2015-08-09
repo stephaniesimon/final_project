@@ -1,4 +1,4 @@
-"""Models and database functions for Ratings project."""
+"""Models and database functions for Final project."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,19 +12,58 @@ db = SQLAlchemy()
 ##############################################################################
 # Model definitions
 
+
+class Recording(db.Model):
+    """Recording for alarm"""
+
+    __tablename__ = "recordings"
+
+    file_path = db.Column(db.String(50))
+    recording_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    recorder_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    alarm_id = db.Column(db.Integer, db. ForeignKey('alarms.alarm_id'))
+    
+
+    user = db.relationship("User",
+                          backref=db.backref("recordings", order_by=recording_id))
+
+    alarm = db.relationship("Alarm",
+                          backref=db.backref("recordings", order_by=recording_id))
+
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Recording recording_id=%s wav_file=%s>" % (self.recording_id, self.blob)
+
+class Alarm(db.Model):
+    """Alarm itself"""
+
+    __tablename__ = "alarms"
+
+    alarm_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    alarm_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    set_time = db.Column(db.DateTime)
+
+    user = db.relationship("User",
+                          backref=db.backref("alarms", order_by=alarm_id))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Alarm alarm_id=%s set_time=%s>" % (self.alarm_id, self.set_time)
+
 class User(db.Model):
-    """User of Chimes website."""
+    """User of Chime website."""
 
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
+    first_name = db.Column(db.String(80))
     alarm_time = db.Column(db.Time, nullable=True)
-    recording_id = db.Column(db.Integer, db.ForeignKey(recordings.recording_id))
-
-    recording = db.relationship("Recording",
-                            backref=db.backref("users", order_by=user_id))
+                        
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -32,21 +71,13 @@ class User(db.Model):
         return "<User user_id=%s email=%s>" % (self.user_id, self.email)
 
 
-class Recording(db.Model):
-    """Alarm recording on Chime website."""
 
-    __tablename__ = "recordings"
 
-    recording_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    recorder_id = db.Column(db.Integer, nullable=False)
-    wav_file = db.Column(db.String(100))
+   
 
-    # change db.String for wav_file once I know what type to use!
+   
 
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return "<Recording recording_id=%s wav_file=%s>" % (self.recording_id, self.wav_file)
+    
 
 
 
