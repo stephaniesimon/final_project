@@ -85,8 +85,8 @@ def save_file():
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
     
 
-    flash('You were successfully logged in')
-    return redirect('/users/<int:user_id>')
+    # flash('You were successfully logged in')
+    # return redirect('/users/<int:user_id>')
 
     return "success!"
 
@@ -167,10 +167,16 @@ def login_process():
 
 @app.route("/users/<int:user_id>")
 def user_alarm(user_id):
-    """User's alarm."""
+    """User's alarm profile"""
 
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
+
+@app.route("/recording_play")
+def play_recording():
+    """User's alarm."""
+
+    return render_template("recording_play.html")
 
 
 if __name__ == "__main__":
