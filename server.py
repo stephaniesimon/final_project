@@ -107,14 +107,6 @@ def user_profile(user_id):
     return render_template("user_alarm.html", user=user)
 
 
-
-@app.route("/set_alarm")
-def user_alarm():
-    """Set alarm"""
-
-    
-    return render_template("set_alarm.html")
-
 @app.route("/record_message")
 def record_message():
     """Record message to be played as alarm tone"""
@@ -122,21 +114,6 @@ def record_message():
     # user = User.query.get(user_id)
     return render_template("make_recording.html")
 
-# @app.route("/set alarm/<int:user_id>")
-# def play_recording():
-#     """User's alarm."""
-
-#     user = query.get(user_id)
-
-#     file_path = User.query.get(user).file_path
-
-#     return redirect("users/%s" % user.user_id)
-
-#     return render_template("recording_play.html", file_path=file_path)
-
-# @app.route("/recording_play/<int:user_id>")
-# def play_recording():
-#     """User's alarm."""
 
 @app.route('/test2', methods=['POST',])
 def save_file():
@@ -145,9 +122,6 @@ def save_file():
     if request.method == 'POST':
         file = request.files['file']
         filename = secure_filename('%s' % int(time.time()) + '.wav')
-
-        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # new_recording = Recording(file_path=(os.path.abspath(filename)))
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         new_recording = Recording(file_path=file_path)
@@ -164,19 +138,35 @@ def save_file():
     return "success!"
     # b.set_acl('public-read')
 
-    # create k which is directed to the aws filepath you want, retrieve from db.
-        # b = https://s3.amazonaws.com/boto-demo-1438909409/
-        # k = b + 1438993622.wav
-
-        # will need to recreate the k value, by getting 1438993622.wav
-           # k = b + 1438993622.wav     
-
-    # go to k, get contents, and place in '/Users/psimon/Desktop' + 1438993622.wav
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
-    
 
-    # flash('You were successfully logged in')
-    # return redirect('/users/<int:user_id>')
+
+
+@app.route("/set_alarm")
+def user_alarm():
+    """Set alarm"""
+
+    
+    return render_template("set_alarm.html")
+
+
+@app.route("/set alarm")
+def play_recording():
+    """User's alarm."""
+
+    user = query.get(user_id)
+
+    file_path = User.query.get(user).file_path
+
+    return redirect("users/%s" % user.user_id)
+
+    return render_template("recording_play.html", file_path=file_path)
+
+@app.route("/recording_play/<int:user_id>")
+def play_recording():
+    """User's alarm."""
+
+
 
 
 if __name__ == "__main__":
