@@ -58,10 +58,11 @@ def register_process():
     new_user = User(email=email, password=password, first_name=first_name)
     
 
+
     db.session.add(new_user)
     db.session.commit()
-    # user = User.query.filter_by(email=email).first()
-
+    
+    session["user_id"] = new_user.user_id
     flash("User %s added." % first_name)
 
     return redirect("/users/%s" % new_user.user_id)
@@ -114,7 +115,6 @@ def record_message():
     # user = User.query.get(user_id)
     return render_template("make_recording.html")
 
-
 @app.route('/test2', methods=['POST',])
 def save_file():
     """Name and save audio file to S3"""
@@ -141,32 +141,24 @@ def save_file():
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
 
 
-
-@app.route("/set_alarm")
-def user_alarm():
+@app.route("/set_timer")
+def set_alarm():
     """Set alarm"""
 
     
     return render_template("set_alarm.html")
 
 
-@app.route("/set alarm")
+@app.route("/recording_play")
 def play_recording():
     """User's alarm."""
-
+    print "hello, I am being called"
+    user_id = session["user_id"]
     user = query.get(user_id)
 
     file_path = User.query.get(user).file_path
 
-    return redirect("users/%s" % user.user_id)
-
     return render_template("recording_play.html", file_path=file_path)
-
-@app.route("/recording_play/<int:user_id>")
-def play_recording():
-    """User's alarm."""
-
-
 
 
 if __name__ == "__main__":
