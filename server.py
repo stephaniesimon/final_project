@@ -162,7 +162,7 @@ def login_process():
 
     session["user_id"] = user.user_id
 
-    # flash("Logged in")
+    flash("Logged in")
     return redirect("users/%s" % user.user_id)
 
 
@@ -194,7 +194,7 @@ def user_alarm():
     
     return render_template("set_alarm.html")
 
-@app.route("/users/record_message")
+@app.route("/record_message")
 def record_message():
     """Record message to be played as alarm tone"""
 
