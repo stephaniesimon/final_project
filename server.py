@@ -33,77 +33,11 @@ app.secret_key = "ABC"
 
 #app.jinja_env.undefined = StrictUndefined
 
-
-
 @app.route('/')
 def index():
     """Homepage."""
 
-    # wav_file = request.form.get
-
     return render_template("index.html")
-
-
-
-@app.route('/test2', methods=['POST',])
-def save_file():
-    """Name and save audio file to S3"""
-
-    if request.method == 'POST':
-        # file = request.files.get('file')
-        file = request.files['file']
-
-        #if file:
-        # filename = secure_filename('%s' % int(time.time()) + '.wav')
-        filename = secure_filename('%s' % int(time.time()) + '.wav')
-
-        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # new_recording = Recording(file_path=(os.path.abspath(filename)))
-
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        new_recording = Recording(file_path=file_path)
-        print file_path
-
-        # (os.path.abspath("test.wav"))
-        db.session.add(new_recording)
-        db.session.commit()
-
-    # save audio wav file to S3 bucket
-
-    k = b.new_key(filename)
-    k.set_contents_from_file(file)
-    # b.set_acl('public-read')
-
-    # create k which is directed to the aws filepath you want, retrieve from db.
-        # b = https://s3.amazonaws.com/boto-demo-1438909409/
-        # k = b + 1438993622.wav
-
-        # will need to recreate the k value, by getting 1438993622.wav
-           # k = b + 1438993622.wav     
-
-    # go to k, get contents, and place in '/Users/psimon/Desktop' + 1438993622.wav
-    # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
-    
-
-    # flash('You were successfully logged in')
-    # return redirect('/users/<int:user_id>')
-
-    return "success!"
-
-
-
-
-# @app.route('/')
-# def get_audio():
-#     """Accessing audio file"""
-
-    # recording = audio
-
-# @app.route('/alarm')
-# def playing_with_alarm():
-#     """Playing with alarm"""
-
-#     return render_template("clock.html")
 
 @app.route('/register', methods=['GET'])
 def register_form():
@@ -146,7 +80,6 @@ def login_form():
 def login_process():
     """Process login."""
 
-    # Get form variables
     email = request.form["email"]
     password = request.form["password"]
 
@@ -173,18 +106,6 @@ def user_profile(user_id):
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
 
-    # When user clicks "set alarm", goes to set_alarm route
-
-@app.route("/users/<int:user_id>", methods=['POST'])
-def alarm_set_process(user_id):
-    """Set alarm for that profile"""
-
-
-
-    user = User.query.get(user_id)
-    
-    return redirect("users/%s/set_alarm" % user.user_id)
-        
 
 
 @app.route("/set_alarm")
@@ -199,7 +120,7 @@ def record_message():
     """Record message to be played as alarm tone"""
 
     # user = User.query.get(user_id)
-    # return render_template("set_alarm.html")
+    return render_template("make_recording.html")
 
 # @app.route("/set alarm/<int:user_id>")
 # def play_recording():
@@ -216,6 +137,46 @@ def record_message():
 # @app.route("/recording_play/<int:user_id>")
 # def play_recording():
 #     """User's alarm."""
+
+@app.route('/test2', methods=['POST',])
+def save_file():
+    """Name and save audio file to S3"""
+
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename('%s' % int(time.time()) + '.wav')
+
+        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # new_recording = Recording(file_path=(os.path.abspath(filename)))
+
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        new_recording = Recording(file_path=file_path)
+        print file_path
+
+        # (os.path.abspath("test.wav"))
+        db.session.add(new_recording)
+        db.session.commit()
+
+    # save audio wav file to S3 bucket
+
+    k = b.new_key(filename)
+    k.set_contents_from_file(file)
+    return "success!"
+    # b.set_acl('public-read')
+
+    # create k which is directed to the aws filepath you want, retrieve from db.
+        # b = https://s3.amazonaws.com/boto-demo-1438909409/
+        # k = b + 1438993622.wav
+
+        # will need to recreate the k value, by getting 1438993622.wav
+           # k = b + 1438993622.wav     
+
+    # go to k, get contents, and place in '/Users/psimon/Desktop' + 1438993622.wav
+    # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
+    
+
+    # flash('You were successfully logged in')
+    # return redirect('/users/<int:user_id>')
 
 
 if __name__ == "__main__":
