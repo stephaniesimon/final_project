@@ -187,15 +187,15 @@ def alarm_set_process(user_id):
         
 
 
-@app.route("/users/set_alarm")
-def user_alarm(user_id):
+@app.route("/set_alarm")
+def user_alarm():
     """Set alarm"""
 
-    user = User.query.get(user_id)
+    
     return render_template("set_alarm.html")
 
-@app.route("/users/<int:user_id>/record")
-def record_message(user_id):
+@app.route("/users/record_message")
+def record_message():
     """Record message to be played as alarm tone"""
 
     # user = User.query.get(user_id)
