@@ -7,10 +7,11 @@
 	<!-- add jinga for .wav file so it can change according to which recording is set -->
 
 <audio controls autoplay>
-  <source src="https://s3.amazonaws.com/boto-demo-1438909409/1439078525.wav" type="audio/wav">
+  <source src="{{ file_path }}" type="audio/wav">
 </audio>
 
 
 </body>
 
 </html>
+

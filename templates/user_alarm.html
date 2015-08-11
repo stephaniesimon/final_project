@@ -49,9 +49,9 @@ var jsalarm={
     this.ctref.innerHTML=ct
     this.ctref.setAttribute("title", ct)
     if (typeof this.hourwake!="undefined"){ //if alarm is set
-      if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
-        clearInterval(jsalarm.timer)
-        window.location=document.getElementById("musicloc").value
+      if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){ //if current time == set time
+        clearInterval(jsalarm.timer) //stop the countdown timer
+        window.location="/recording_play" //navigate to new page (not new window though)
       }
     }
   },
@@ -117,8 +117,11 @@ var jsalarm={
 <form action="" method="">
 <div id="jsalarmclock">
 <div><div class="leftcolumn">Current Time:</div> <span id="jsalarm_ct" style="letter-spacing: 2px"></span></div>
-<div><div class="leftcolumn">Set Alarm:</div> <span><select></select> Hour</span> <span><select></select> Minutes</span> <span><select></select> Seconds</span></div>
-<div><div class="leftcolumn">Set Alarm Action:</div> <input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> <span style="font: normal 11px Tahoma">*Location of page to launch</span></div>
+<div><div class="leftcolumn">Set Alarm:</div> <span><select></select> Hour</span> <span><select></select> Minutes</span> <span><select></select> Seconds</span></div><!-- 
+<div><div class="leftcolumn">Alarm Action:</div> <p id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> <span style="font: normal 11px Tahoma">*Location of page to launch</span></div> -->
+
+<!-- <div><div class="leftcolumn">Alarm Action:</div> <input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> <span style="font: normal 11px Tahoma">*Location of page to launch</span></div> -->
+
 <input type="submit" value="Set Alarm!" id="submitbutton" /> <input type="reset" value="reset" id="resetbutton" />
 </div>
 </form>

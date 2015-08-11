@@ -92,6 +92,7 @@ def save_file():
 
 
 
+
 # @app.route('/')
 # def get_audio():
 #     """Accessing audio file"""
@@ -172,11 +173,15 @@ def user_alarm(user_id):
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
 
-@app.route("/recording_play")
+@app.route("/recording_play/<int:user_id>")
 def play_recording():
     """User's alarm."""
 
-    return render_template("recording_play.html")
+    user = query.get(user_id)
+
+    file_path = User.query.get(user).file_path
+
+    return render_template("recording_play.html", file_path=file_path)
 
 
 if __name__ == "__main__":
