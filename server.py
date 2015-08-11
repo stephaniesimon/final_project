@@ -167,21 +167,47 @@ def login_process():
 
 
 @app.route("/users/<int:user_id>")
-def user_alarm(user_id):
+def user_profile(user_id):
     """User's alarm profile"""
 
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
 
-@app.route("/recording_play/<int:user_id>")
-def play_recording():
-    """User's alarm."""
+    # When user clicks "set alarm", goes to set_alarm route
 
-    user = query.get(user_id)
+@app.route("/users/<int:user_id>")
+def route_to_set_alarm(user_id):
+    """Set alarm for that profile"""
 
-    file_path = User.query.get(user).file_path
+    user = User.query.get(user_id)
+    return redirect("users/%s" % user.user_id)
+        
 
-    return render_template("recording_play.html", file_path=file_path)
+
+@app.route("/users/<int:user_id>/set_alarm")
+def user_alarm(user_id):
+    """Set alarm"""
+
+
+
+    user = User.query.get(user_id)
+    return render_template("set_alarm.html")
+
+# @app.route("/set alarm/<int:user_id>")
+# def play_recording():
+#     """User's alarm."""
+
+#     user = query.get(user_id)
+
+#     file_path = User.query.get(user).file_path
+
+#     return redirect("users/%s" % user.user_id)
+
+#     return render_template("recording_play.html", file_path=file_path)
+
+# @app.route("/recording_play/<int:user_id>")
+# def play_recording():
+#     """User's alarm."""
 
 
 if __name__ == "__main__":
