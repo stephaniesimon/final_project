@@ -160,13 +160,13 @@ def login_process():
         flash("Incorrect password")
         return redirect("/login")
 
-    session["user_id"] = user.user_id
+    # session["user_id"] = user.user_id
 
-    flash("Logged in")
+    # flash("Logged in")
     return redirect("users/%s" % user.user_id)
 
 
-@app.route("/users/<int:user_id>")
+@app.route("/users/<int:user_id>", methods=['GET'])
 def user_profile(user_id):
     """User's alarm profile"""
 
@@ -175,23 +175,31 @@ def user_profile(user_id):
 
     # When user clicks "set alarm", goes to set_alarm route
 
-@app.route("/users/<int:user_id>")
-def route_to_set_alarm(user_id):
+@app.route("/users/<int:user_id>", methods=['POST'])
+def alarm_set_process(user_id):
     """Set alarm for that profile"""
 
+
+
     user = User.query.get(user_id)
-    return redirect("users/%s" % user.user_id)
+    
+    return redirect("users/%s/set_alarm" % user.user_id)
         
 
 
-@app.route("/users/<int:user_id>/set_alarm")
+@app.route("/users/set_alarm")
 def user_alarm(user_id):
     """Set alarm"""
 
-
-
     user = User.query.get(user_id)
     return render_template("set_alarm.html")
+
+@app.route("/users/<int:user_id>/record")
+def record_message(user_id):
+    """Record message to be played as alarm tone"""
+
+    # user = User.query.get(user_id)
+    # return render_template("set_alarm.html")
 
 # @app.route("/set alarm/<int:user_id>")
 # def play_recording():
