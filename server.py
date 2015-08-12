@@ -152,15 +152,19 @@ def set_timer_process():
     hours = request.form["hours"]
     minutes = request.form["minutes"]
 
+    milliseconds_hours = int(hours) * 3600000
+    milliseconds_minutes = int(minutes) * 60000
+
+    total_milliseconds = milliseconds_hours + milliseconds_minutes
+
     new_timer = Timer(set_time=total_milliseconds)
+
+    db.session.add(new_timer)
+    db.session.commit()
+
+
+
     
-
-    # milliseconds_hours = int(hours) * 3600000
-    # milliseconds_minutes = int(minutes) * 60000
-
-    # total_milliseconds = milliseconds_hours + milliseconds_minutes
-
-    # return total_milliseconds
 
 
 @app.route("/recording_play")
