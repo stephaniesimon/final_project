@@ -47,6 +47,10 @@
 
 <script>
 
+function goToRecording() {
+  window.open("/recording_play");
+  }
+
 $("#finalize_timer").on("click", function() {
 
   var hours = $("#hours").val();
@@ -57,18 +61,16 @@ $("#finalize_timer").on("click", function() {
 
   var total_milliseconds = milli_hours + milli_minutes;
 
-  console.log(hours);
-  console.log(minutes);
-  console.log(milli_hours);
-  console.log(milli_minutes);
-  console.log(total_milliseconds);
-  console.log("I was clicked");
-  setTimeout("alert('Hi');", total_milliseconds);
-})
+  setTimeout(goToRecording, total_milliseconds);
+  })
 
-function goToRecording() {
-  
-}
+
+// console.log(hours);
+//   console.log(minutes);
+//   console.log(milli_hours);
+//   console.log(milli_minutes);
+//   console.log(total_milliseconds);
+//   console.log("I was clicked");
 
 // function setTimerToPlayRecording(evt) {
 
