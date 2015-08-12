@@ -72,7 +72,22 @@ class User(db.Model):
 
 
 
+class Timer(db.Model):
+    """Timer table"""
 
+    __tablename__ = "timers"
+
+    timer_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    timer_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    set_time = db.Column(db.Integer)
+
+    user = db.relationship("User",
+                          backref=db.backref("timers", order_by=timer_id))
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Timer timer_id=%s set_time=%s>" % (self.timer_id, self.set_time)
    
 
    

@@ -141,9 +141,12 @@ def save_file():
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
 
 
-@app.route("/set_timer")
+@app.route("/set_timer", methods=['POST'])
 def set_alarm():
     """Set alarm"""
+
+    hours = request.form["hours"]
+    minutes = request.form["minutes"]
 
     
     return render_template("set_alarm.html")
