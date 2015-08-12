@@ -4,7 +4,7 @@
 #from jinja2 import StrictUndefined
 
 from flask import Flask, flash, redirect, render_template, request, url_for, session
-from model import Recording, User, Alarm, connect_to_db, db
+from model import Recording, User, Alarm, Timer, connect_to_db, db
 import os
 from werkzeug.utils import secure_filename
 
@@ -139,17 +139,28 @@ def save_file():
     # b.set_acl('public-read')
 
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
+@app.route("/set_timer", methods=['POST', 'GET'])
+def show_set_alarm_page():
+    """show set_alarm page"""
 
+    return render_template("set_alarm.html")
 
-@app.route("/set_timer", methods=['POST'])
-def set_alarm():
-    """Set alarm"""
+@app.route("/set_timer_process", methods=['POST'])
+def set_timer_process():
+    """Set timer"""
 
     hours = request.form["hours"]
     minutes = request.form["minutes"]
 
+    new_timer = Timer(set_time=total_milliseconds)
     
-    return render_template("set_alarm.html")
+
+    # milliseconds_hours = int(hours) * 3600000
+    # milliseconds_minutes = int(minutes) * 60000
+
+    # total_milliseconds = milliseconds_hours + milliseconds_minutes
+
+    # return total_milliseconds
 
 
 @app.route("/recording_play")
