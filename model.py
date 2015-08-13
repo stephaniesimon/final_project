@@ -18,16 +18,17 @@ class Recording(db.Model):
 
     __tablename__ = "recordings"
 
-    file_path = db.Column(db.String(50))
+   
     recording_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     recorder_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    alarm_id = db.Column(db.Integer, db. ForeignKey('alarms.alarm_id'))
+    timer_id = db.Column(db.Integer, db. ForeignKey('timers.timer_id'))
+    file_path = db.Column(db.String(50))
     
 
     user = db.relationship("User",
                           backref=db.backref("recordings", order_by=recording_id))
 
-    alarm = db.relationship("Alarm",
+    timer = db.relationship("Timer",
                           backref=db.backref("recordings", order_by=recording_id))
 
 
@@ -36,22 +37,7 @@ class Recording(db.Model):
 
         return "<Recording recording_id=%s wav_file=%s>" % (self.recording_id, self.blob)
 
-class Alarm(db.Model):
-    """Alarm itself"""
-
-    __tablename__ = "alarms"
-
-    alarm_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    alarm_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    set_time = db.Column(db.DateTime)
-
-    user = db.relationship("User",
-                          backref=db.backref("alarms", order_by=alarm_id))
-
-    def __repr__(self):
-        """Provide helpful representation when printed."""
-
-        return "<Alarm alarm_id=%s set_time=%s>" % (self.alarm_id, self.set_time)
+# 
 
 class User(db.Model):
     """User of Chime website."""
@@ -62,7 +48,7 @@ class User(db.Model):
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
     first_name = db.Column(db.String(80))
-    alarm_time = db.Column(db.Time, nullable=True)
+    
                         
 
     def __repr__(self):
@@ -79,7 +65,7 @@ class Timer(db.Model):
 
     timer_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     timer_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    set_time = db.Column(db.Integer)
+    timer_time = db.Column(db.Integer)
 
     user = db.relationship("User",
                           backref=db.backref("timers", order_by=timer_id))
@@ -92,7 +78,22 @@ class Timer(db.Model):
 
    
 
-    
+    # class Alarm(db.Model):
+#     """Alarm itself"""
+
+#     __tablename__ = "alarms"
+
+#     alarm_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+#     alarm_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+#     set_time = db.Column(db.DateTime)
+
+#     user = db.relationship("User",
+#                           backref=db.backref("alarms", order_by=alarm_id))
+
+#     def __repr__(self):
+#         """Provide helpful representation when printed."""
+
+#         return "<Alarm alarm_id=%s set_time=%s>" % (self.alarm_id, self.set_time)
 
 
 

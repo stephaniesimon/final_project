@@ -96,6 +96,7 @@ def login_process():
 
     session["user_id"] = user.user_id
 
+
     flash("Logged in")
     return redirect("users/%s" % user.user_id)
 
@@ -106,6 +107,30 @@ def user_profile(user_id):
 
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
+
+@app.route("/set_timer", methods=['POST', 'GET'])
+def show_set_alarm_page():
+    """show set_alarm page"""
+
+    return render_template("set_alarm.html")
+
+@app.route("/set_timer_process", methods=['POST'])
+def set_timer_process():
+    """Set timer"""
+
+    hours = request.form["hours"]
+    minutes = request.form["minutes"]
+
+    milliseconds_hours = int(hours) * 3600000
+    milliseconds_minutes = int(minutes) * 60000
+
+    total_milliseconds = milliseconds_hours + milliseconds_minutes
+    user_id = session["user_id"]
+
+    new_timer = Timer(timer_time=total_milliseconds, timer_user_id=user_id)
+
+    db.session.add(new_timer)
+    db.session.commit()
 
 
 @app.route("/record_message")
@@ -124,8 +149,9 @@ def save_file():
         filename = secure_filename('%s' % int(time.time()) + '.wav')
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        new_recording = Recording(file_path=file_path)
-        print file_path
+        user_id = session["user_id"]
+        new_recording = Recording(file_path=file_path, recorder_user_id=user_id)
+        
 
         # (os.path.abspath("test.wav"))
         db.session.add(new_recording)
@@ -139,42 +165,17 @@ def save_file():
     # b.set_acl('public-read')
 
     # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
-@app.route("/set_timer", methods=['POST', 'GET'])
-def show_set_alarm_page():
-    """show set_alarm page"""
-
-    return render_template("set_alarm.html")
-
-@app.route("/set_timer_process", methods=['POST'])
-def set_timer_process():
-    """Set timer"""
-
-    hours = request.form["hours"]
-    minutes = request.form["minutes"]
-
-    milliseconds_hours = int(hours) * 3600000
-    milliseconds_minutes = int(minutes) * 60000
-
-    total_milliseconds = milliseconds_hours + milliseconds_minutes
-
-    new_timer = Timer(set_time=total_milliseconds)
-
-    db.session.add(new_timer)
-    db.session.commit()
-
-
-
-    
 
 
 @app.route("/recording_play")
 def play_recording():
     """User's alarm."""
-    print "hello, I am being called"
+    
     user_id = session["user_id"]
-    user = query.get(user_id)
+    
+    recording = Recording.query.get(recorder_user_id=user_id)
 
-    file_path = User.query.get(user).file_path
+    file_path = Recording.query.get(recording)
 
     return render_template("recording_play.html", file_path=file_path)
 
