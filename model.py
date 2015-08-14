@@ -65,6 +65,7 @@ class Timer(db.Model):
 
     timer_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     timer_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    timer_start_time = db.Column(db.Integer, default=int(time.time()))
     timer_time = db.Column(db.Integer)
 
     user = db.relationship("User",

@@ -15,19 +15,19 @@
 <body>
 
 
-  <form id="set_timer" action="set_timer_process" method="POST">
+  <form id="set_timer" action="/set_timer_process" method="POST">
     <label>Hours
       <input id="hours" type="number" name="hours" min="0" max="23" value="0"></label>
       <label>Minutes
       <input id="minutes" type="number" name="minutes" min="0" max="59" value="0"></label>
-    <!-- <input id="submit_button" type="submit" value="Set timer!"> -->
+    <input id="submit_button" type="submit" value="Set timer!">
 
   </form>
 
-  <button id="finalize_timer">Set Time</button>
+  
 
 
-  <p>{{ total_milliseconds }}</p>
+  <button id ="record_message">Record A Message</button>
 
 
 
@@ -47,22 +47,11 @@
 
 <script>
 
-function goToRecording() {
-  window.open("/recording_play");
-  }
+document.getElementById("record_message").onclick = function () {
+        location.href = "/record_message";
+    };
 
-$("#finalize_timer").on("click", function() {
 
-  var hours = $("#hours").val();
-  var minutes = $("#minutes").val();
-
-  var milli_hours = hours * 3600000;
-  var milli_minutes = minutes * 60000;
-
-  var total_milliseconds = milli_hours + milli_minutes;
-
-  setTimeout(goToRecording, total_milliseconds);
-  })
 
 
 // http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_settimeout_clock  (clock script for current time)

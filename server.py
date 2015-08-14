@@ -4,7 +4,7 @@
 #from jinja2 import StrictUndefined
 
 from flask import Flask, flash, redirect, render_template, request, url_for, session
-from model import Recording, User, Alarm, Timer, connect_to_db, db
+from model import Recording, User, Timer, connect_to_db, db
 import os
 from werkzeug.utils import secure_filename
 
@@ -58,7 +58,6 @@ def register_process():
     new_user = User(email=email, password=password, first_name=first_name)
     
 
-
     db.session.add(new_user)
     db.session.commit()
     
@@ -103,14 +102,14 @@ def login_process():
 
 @app.route("/users/<int:user_id>", methods=['GET'])
 def user_profile(user_id):
-    """User's alarm profile"""
+    """User's timer profile"""
 
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
 
 @app.route("/set_timer", methods=['POST', 'GET'])
-def show_set_alarm_page():
-    """show set_alarm page"""
+def show_set_timer_page():
+    """show set_timer page"""
 
     return render_template("set_alarm.html")
 
@@ -127,15 +126,19 @@ def set_timer_process():
     total_milliseconds = milliseconds_hours + milliseconds_minutes
     user_id = session["user_id"]
 
+    print total_milliseconds, user_id
+
     new_timer = Timer(timer_time=total_milliseconds, timer_user_id=user_id)
 
     db.session.add(new_timer)
     db.session.commit()
 
+    return "success!"
+
 
 @app.route("/record_message")
 def record_message():
-    """Record message to be played as alarm tone"""
+    """Record message to be played as timer tone"""
 
     # user = User.query.get(user_id)
     return render_template("make_recording.html")
@@ -150,6 +153,7 @@ def save_file():
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         user_id = session["user_id"]
+        timer_id= User.query.get(user_id).timers
         new_recording = Recording(file_path=file_path, recorder_user_id=user_id)
         
 
@@ -169,7 +173,7 @@ def save_file():
 
 @app.route("/recording_play")
 def play_recording():
-    """User's alarm."""
+    """User's timer."""
     
     user_id = session["user_id"]
     

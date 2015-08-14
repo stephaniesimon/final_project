@@ -14,16 +14,31 @@
   <button onclick="startRecording(this);">record</button>
   <button onclick="stopRecording(this);" disabled>stop</button>
   
-  <button id="set_timer">Set a Timer</button>
 
   <!-- <ul id="recordingslist"></ul> -->
+
+  <button id="finalize_timer">Finalize!</button>
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script>
   
-  document.getElementById("set_timer").onclick = function () {
-        location.href = "/set_timer";
-    };
+  function goToRecording() {
+  window.open("/recording_play");
+  }
+
+$("#finalize_timer").on("click", function() {
+
+  var hours = $("#hours").val();
+  var minutes = $("#minutes").val();
+
+  var milli_hours = hours * 3600000;
+  var milli_minutes = minutes * 60000;
+
+  var total_milliseconds = milli_hours + milli_minutes;
+
+  setTimeout(goToRecording, total_milliseconds);
+  })
+  
 
   var audio_context;
   var recorder;
