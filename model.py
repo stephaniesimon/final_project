@@ -23,7 +23,7 @@ class Recording(db.Model):
    
     recording_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    question_id = db.Column(db.Integer, db. ForeignKey('questions.question_id'))
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.question_id'))
     file_path = db.Column(db.String(50))
     time_stamp = db.Column(db.Time)
     
@@ -83,15 +83,18 @@ class Question(db.Model):
 
     __tablename__ = "questions"
 
-    category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    category_name = db.Column(db.String(20))
-    category_description = db.Column(db.String(300))
+    question_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    question_text = db.Column(db.String(500))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
+
+    category = db.relationship("Category",
+                          backref=db.backref("questions", order_by=question_id))
 
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Category category_id=%s category_name=%s>" % (self.category_id, self.category_name)
+        return "<Question question_id=%s question_text=%s>" % (self.question_id, self.question_text)
    
 
 ##############################################################################
