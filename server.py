@@ -107,6 +107,14 @@ def user_profile(user_id):
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user)
 
+
+# @app.route("/users")
+# def users():
+#     """List of users"""
+
+#     return render_template("user_alarm.html", user=user)
+
+
 @app.route("/set_timer", methods=['POST', 'GET'])
 def show_set_timer_page():
     """show set_timer page"""
@@ -190,6 +198,7 @@ if __name__ == "__main__":
 
     # Do not debug for demo
     app.debug = True
+
 
     connect_to_db(app)
 
