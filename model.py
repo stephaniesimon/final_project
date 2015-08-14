@@ -22,15 +22,16 @@ class Recording(db.Model):
 
    
     recording_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    recorder_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    timer_id = db.Column(db.Integer, db. ForeignKey('timers.timer_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    question_id = db.Column(db.Integer, db. ForeignKey('questions.question_id'))
     file_path = db.Column(db.String(50))
+    time_stamp = db.Column(db.Time)
     
 
     user = db.relationship("User",
                           backref=db.backref("recordings", order_by=recording_id))
 
-    timer = db.relationship("Timer",
+    question = db.relationship("Question",
                           backref=db.backref("recordings", order_by=recording_id))
 
 
@@ -50,6 +51,7 @@ class User(db.Model):
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64), nullable=True)
     first_name = db.Column(db.String(80))
+    last_name = db.Column(db.String(80))
     
                         
 
@@ -60,46 +62,37 @@ class User(db.Model):
 
 
 
-class Timer(db.Model):
-    """Timer table"""
+class Category(db.Model):
+    """Categories table"""
 
-    __tablename__ = "timers"
+    __tablename__ = "categories"
 
-    timer_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    timer_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    timer_start_time = db.Column(db.Integer, default=int(time.time()))
-    timer_time = db.Column(db.Integer)
+    category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category_name = db.Column(db.String(20))
+    category_description = db.Column(db.String(300))
 
-    user = db.relationship("User",
-                          backref=db.backref("timers", order_by=timer_id))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Timer timer_id=%s set_time=%s>" % (self.timer_id, self.set_time)
+        return "<Category category_id=%s category_name=%s>" % (self.category_id, self.category_name)
    
 
+class Question(db.Model):
+    """Questions table"""
+
+    __tablename__ = "questions"
+
+    category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category_name = db.Column(db.String(20))
+    category_description = db.Column(db.String(300))
+
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Category category_id=%s category_name=%s>" % (self.category_id, self.category_name)
    
-
-    # class Alarm(db.Model):
-#     """Alarm itself"""
-
-#     __tablename__ = "alarms"
-
-#     alarm_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     alarm_user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-#     set_time = db.Column(db.DateTime)
-
-#     user = db.relationship("User",
-#                           backref=db.backref("alarms", order_by=alarm_id))
-
-#     def __repr__(self):
-#         """Provide helpful representation when printed."""
-
-#         return "<Alarm alarm_id=%s set_time=%s>" % (self.alarm_id, self.set_time)
-
-
-
 
 ##############################################################################
 # Helper functions
