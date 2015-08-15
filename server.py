@@ -115,35 +115,6 @@ def user_profile(user_id):
 #     return render_template("user_alarm.html", user=user)
 
 
-@app.route("/set_timer", methods=['POST', 'GET'])
-def show_set_timer_page():
-    """show set_timer page"""
-
-    return render_template("set_alarm.html")
-
-@app.route("/set_timer_process", methods=['POST'])
-def set_timer_process():
-    """Set timer"""
-
-    hours = request.form["hours"]
-    minutes = request.form["minutes"]
-
-    milliseconds_hours = int(hours) * 3600000
-    milliseconds_minutes = int(minutes) * 60000
-
-    total_milliseconds = milliseconds_hours + milliseconds_minutes
-    user_id = session["user_id"]
-
-    print total_milliseconds, user_id
-
-    new_timer = Timer(timer_time=total_milliseconds, timer_user_id=user_id)
-
-    db.session.add(new_timer)
-    db.session.commit()
-
-    return "success!"
-
-
 @app.route("/record_message")
 def record_message():
     """Record message to be played as timer tone"""
