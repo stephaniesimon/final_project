@@ -4,7 +4,7 @@
 #from jinja2 import StrictUndefined
 
 from flask import Flask, flash, redirect, render_template, request, url_for, session
-from model import Recording, User, Timer, connect_to_db, db
+from model import Recording, User, Category, Question, connect_to_db, db
 import os
 from werkzeug.utils import secure_filename
 

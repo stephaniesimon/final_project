@@ -68,7 +68,7 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    category_name = db.Column(db.String(20))
+    category_name = db.Column(db.String(20), unique=True)
     category_description = db.Column(db.String(300))
 
 
@@ -104,7 +104,7 @@ def connect_to_db(app):
     """Connect the database to our Flask app."""
 
     # Configure to use our SQLite database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chime.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chime2.db'
     db.app = app
     db.init_app(app)
 

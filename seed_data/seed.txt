@@ -10,7 +10,7 @@ Your idea of misery? | IDENTITY
 If not yourself, who would you be? | FUN	
 Where would you like to live? | ASPIRATION	
 Your favourite colour and flower? | FUN	
-My favorite bird? | FUN
+Your favorite bird? | FUN
 Your favorite prose authors? | CULTURE
 Your favorite poets? | CULTURE
 Your favorite heroes in fiction? | CULTURE
@@ -21,12 +21,12 @@ Your favorite heroines in real life? | RELATIONSHIPS
 What characters in history do you most dislike? | CULTURE
 Your favorite food and drink? | FUN	
 Your favorite names? | FUN		
-What I hate the most? | IDENTITY	
-World history characters I hate the most? | CULTURE	
-The military event I admire the most? | CULTURE
-The reform I admire the most? | CULTURE	
-The natural talent I'd like to be gifted with? | IDENTITY	
-How I wish to die? | FUN
+What do you hate the most? | IDENTITY	
+What's the world history characters you hate the most? | CULTURE	
+What's the military event you admire the most? | CULTURE
+What's the reform you admire the most? | CULTURE	
+What's the natural talent you'd like to be gifted with? | IDENTITY	
+How do you wish to die? | FUN
 What is your present state of mind? | IDENTITY
 For what fault have you most toleration? | RELATIONSHIPS	
 Your favorite motto? | IDENTITY
