@@ -4,8 +4,10 @@
 #from jinja2 import StrictUndefined
 
 from flask import Flask, flash, redirect, render_template, request, url_for, session
+from  sqlalchemy.sql.expression import func, select
 from model import Recording, User, Category, Question, connect_to_db, db
 import os
+import random
 from werkzeug.utils import secure_filename
 
 import boto
@@ -104,10 +106,20 @@ def login_process():
 def user_profile(user_id):
     """User's timer profile"""
 
-    questions = Question.query.all()
+    all_questions = db.session.query(Question.question_text).all()
+    unformatted_question = random.choice(all_questions)
+    # question = [item[0] for item in unformatted_question]
+
+
+
+    # all_questions = Question.query.all()
+    # # question = all_questions.question_text
+    # question = Question.query.filter(Question.question_id == 3).question_text.all()
+    
+
 
     user = User.query.get(user_id)
-    return render_template("user_alarm.html", user=user, questions=questions)
+    return render_template("user_alarm.html", user=user, question=unformatted_question)
 
 
 # @app.route("/users")
