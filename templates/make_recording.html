@@ -21,23 +21,7 @@
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script>
-  
-  function goToRecording() {
-  window.open("/recording_play");
-  }
-
-$("#finalize_timer").on("click", function() {
-
-  var hours = $("#hours").val();
-  var minutes = $("#minutes").val();
-
-  var milli_hours = hours * 3600000;
-  var milli_minutes = minutes * 60000;
-
-  var total_milliseconds = milli_hours + milli_minutes;
-
-  setTimeout(goToRecording, total_milliseconds);
-  })
+ 
   
 
   var audio_context;

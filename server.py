@@ -108,18 +108,33 @@ def user_profile(user_id):
 
     all_questions = db.session.query(Question.question_text).all()
     unformatted_question = random.choice(all_questions)
-    # question = [item[0] for item in unformatted_question]
-
-
-
-    # all_questions = Question.query.all()
-    # # question = all_questions.question_text
-    # question = Question.query.filter(Question.question_id == 3).question_text.all()
     
-
-
+    #FIXME - format question to get rid of parentheses, "u" and quotes
     user = User.query.get(user_id)
     return render_template("user_alarm.html", user=user, question=unformatted_question)
+
+@app.route('/test2', methods=['POST',])
+def save_file():
+    """Name and save audio file to S3"""
+
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename('%s' % int(time.time()) + '.wav')
+
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        user_id = session["user_id"]
+        timer_id= User.query.get(user_id).timers
+        new_recording = Recording(file_path=file_path, recorder_user_id=user_id)
+        
+
+        db.session.add(new_recording)
+        db.session.commit()
+
+    # save audio wav file to S3 bucket
+
+    k = b.new_key(filename)
+    k.set_contents_from_file(file)
+    return "success!"
 
 
 # @app.route("/users")
@@ -136,32 +151,7 @@ def record_message():
     # user = User.query.get(user_id)
     return render_template("make_recording.html")
 
-@app.route('/test2', methods=['POST',])
-def save_file():
-    """Name and save audio file to S3"""
 
-    if request.method == 'POST':
-        file = request.files['file']
-        filename = secure_filename('%s' % int(time.time()) + '.wav')
-
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        user_id = session["user_id"]
-        timer_id= User.query.get(user_id).timers
-        new_recording = Recording(file_path=file_path, recorder_user_id=user_id)
-        
-
-        # (os.path.abspath("test.wav"))
-        db.session.add(new_recording)
-        db.session.commit()
-
-    # save audio wav file to S3 bucket
-
-    k = b.new_key(filename)
-    k.set_contents_from_file(file)
-    return "success!"
-    # b.set_acl('public-read')
-
-    # k.get_contents_to_filename(os.path.join('/Users/psimon/Desktop', filename))
 
 
 @app.route("/recording_play")
