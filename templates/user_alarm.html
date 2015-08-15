@@ -10,22 +10,17 @@
 
   <h2>{{ user.first_name }}</h2>
 
-  <p>Why wake up to the same beeping every day?</p>
-  <p>Record a message for your friends to wake up to</p>
+  <ul>
+  {% for question in questions %}
+  <li>{{ question }}</li>
+  </ul>
 
   
-  
-  <button id="set_timer">Set a Timer</button>
-  
-
-
   <script src="http://code.jquery.com/jquery.js"></script>
 
   <script>
 
-  document.getElementById("set_timer").onclick = function () {
-        location.href = "/set_timer";
-    };
+  
   
 
   //   function setAlarm() {

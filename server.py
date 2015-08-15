@@ -104,8 +104,10 @@ def login_process():
 def user_profile(user_id):
     """User's timer profile"""
 
+    questions = Question.query.all()
+
     user = User.query.get(user_id)
-    return render_template("user_alarm.html", user=user)
+    return render_template("user_alarm.html", user=user, questions=questions)
 
 
 # @app.route("/users")
