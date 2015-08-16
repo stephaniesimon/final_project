@@ -17,7 +17,7 @@
 
   
   
-  <p id="question_text">{{ question }}</p>
+  <p>{{ question }}</p>
   <br><br>
 
   <button onclick="startRecording(this);">record</button>
@@ -35,22 +35,7 @@
 
  $('#next_question').click(function() {
     location.reload();
-});
-
- $('#stop_recording').click(function() {
-    location.reload();
-});
-
-
-//  $.get("/server_status", "message to the server!", function (data){
-//     alert(data);
-// });
-
-//  $("#next_question").on('click', newQuestion);
-
-// function newQuestion (evt) {
-
-
+})
 
 
  var audio_context;
@@ -82,7 +67,7 @@
     
     // create WAV download link using audio data blob
     sendBlobToServer();
-    sendQuestionTextToServer();
+    // sendQuestionTextToServer();
     recorder.clear();
   }
 
@@ -95,7 +80,7 @@
         formData.append('file', blob, 'test.wav');
 
         $.ajax({
-        url :  "/test2",
+        url :  "/process_recording",
         type: 'POST',
         data:  formData,
         contentType: false,
@@ -112,11 +97,11 @@
 
     }
 
-  function sendQuestionTextToServer() {
-    var question_text = $("#question_text")
-    $.get("/test2", question_text, function() {
-      return "success again!"
-    } )
+  // function sendQuestionIdToServer() {
+  //   var question_text = $("#question_text");
+  //   $.get("/test2", question_text, function() {
+  //     return "success again!"
+  //   })}
     
 
 
