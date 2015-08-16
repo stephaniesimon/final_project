@@ -106,12 +106,14 @@ def login_process():
 def user_profile(user_id):
     """User's timer profile"""
 
-    all_questions = db.session.query(Question.question_text).all()
+
+    all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
-    
-    #FIXME - format question to get rid of parentheses, "u" and quotes
+    question_text = str(unformatted_question[0])
+    question_id = unformatted_question[1]
     user = User.query.get(user_id)
-    return render_template("user_alarm.html", user=user, question=unformatted_question)
+
+    return render_template("user_alarm.html", user=user, question=question_text, question_id=question_id)
 
 @app.route('/test2', methods=['POST',])
 def save_file():
@@ -122,49 +124,50 @@ def save_file():
         filename = secure_filename('%s' % int(time.time()) + '.wav')
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        user_id = session["user_id"]
-        timer_id= User.query.get(user_id).timers
-        new_recording = Recording(file_path=file_path, recorder_user_id=user_id)
+        user_id = session["user_id"] 
+        new_recording = Recording(file_path=file_path, user_id=user_id)
         
 
         db.session.add(new_recording)
         db.session.commit()
 
-    # save audio wav file to S3 bucket
-
     k = b.new_key(filename)
     k.set_contents_from_file(file)
     return "success!"
 
-
-# @app.route("/users")
-# def users():
-#     """List of users"""
-
-#     return render_template("user_alarm.html", user=user)
+# @app.route("/")
+# def record_message():
+#     """Record message to be played as timer tone"""
 
 
-@app.route("/record_message")
-def record_message():
-    """Record message to be played as timer tone"""
+# # @app.route("/users")
+# # def users():
+# #     """List of users"""
 
-    # user = User.query.get(user_id)
-    return render_template("make_recording.html")
-
+# #     return render_template("user_alarm.html", user=user)
 
 
+# @app.route("/record_message")
+# def record_message():
+#     """Record message to be played as timer tone"""
 
-@app.route("/recording_play")
-def play_recording():
-    """User's timer."""
+#     # user = User.query.get(user_id)
+#     return render_template("make_recording.html")
+
+
+
+
+# @app.route("/recording_play")
+# def play_recording():
+#     """User's timer."""
     
-    user_id = session["user_id"]
+#     user_id = session["user_id"]
     
-    recording = Recording.query.get(recorder_user_id=user_id)
+#     recording = Recording.query.get(recorder_user_id=user_id)
 
-    file_path = Recording.query.get(recording)
+#     file_path = Recording.query.get(recording)
 
-    return render_template("recording_play.html", file_path=file_path)
+#     return render_template("recording_play.html", file_path=file_path)
 
 
 if __name__ == "__main__":

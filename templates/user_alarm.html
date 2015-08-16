@@ -17,21 +17,42 @@
 
   
   
-  {{ question }}
+  <p id="question_text">{{ question }}</p>
   <br><br>
 
   <button onclick="startRecording(this);">record</button>
-  <button onclick="stopRecording(this);" disabled>stop</button>
+  <button id="stop_recording" onclick="stopRecording(this);" disabled>stop</button>
   
 
   <!-- <ul id="recordingslist"></ul> -->
 
-  <button id="finalize_timer">Finalize!</button>
+  <button id="next_question">Another question!</button>
   
   
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
+
+ $('#next_question').click(function() {
+    location.reload();
+});
+
+ $('#stop_recording').click(function() {
+    location.reload();
+});
+
+
+//  $.get("/server_status", "message to the server!", function (data){
+//     alert(data);
+// });
+
+//  $("#next_question").on('click', newQuestion);
+
+// function newQuestion (evt) {
+
+
+
+
  var audio_context;
   var recorder;
 
@@ -61,9 +82,10 @@
     
     // create WAV download link using audio data blob
     sendBlobToServer();
-    
+    sendQuestionTextToServer();
     recorder.clear();
   }
+
 
   function sendBlobToServer() {
       recorder && recorder.exportWAV(function (blob) {
@@ -89,6 +111,12 @@
     })
 
     }
+
+  function sendQuestionTextToServer() {
+    var question_text = $("#question_text")
+    $.get("/test2", question_text, function() {
+      return "success again!"
+    } )
     
 
 
