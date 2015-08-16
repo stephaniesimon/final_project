@@ -103,19 +103,6 @@ def login_process():
 
 
 @app.route("/users/<int:user_id>", methods=['GET'])
-def user_profile_process(user_id):
-    """User's timer profile"""
-
-
-    all_questions = db.session.query(Question.question_text, Question.question_id).all()
-    unformatted_question = random.choice(all_questions)
-    question_text = str(unformatted_question[0])
-    question_id = unformatted_question[1]
-    user = User.query.get(user_id)
-
-    return redirect("users/%s/%s/%s" % user.user_id, question_id, question_text)
-
-@app.route("/users/<int:user_id>/<int:question_id>/<str:question_text", methods=['GET'])
 def user_profile(user_id):
     """User's timer profile"""
 
@@ -125,10 +112,11 @@ def user_profile(user_id):
     question_text = str(unformatted_question[0])
     question_id = unformatted_question[1]
     user = User.query.get(user_id)
+    session["question_id"] = question_id
 
     return render_template("user_alarm.html", user=user, question=question_text, question_id=question_id)
 
-@app.route("/process_recording", methods=['POST',])
+@app.route("/save_recording", methods=['POST',])
 def save_file():
     """Name and save audio file to S3"""
 
@@ -138,7 +126,8 @@ def save_file():
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         user_id = session["user_id"] 
-        new_recording = Recording(file_path=file_path, user_id=user_id)
+        question_id = session ["question_id"]
+        new_recording = Recording(file_path=file_path, user_id=user_id, question_id=question_id)
         
 
         db.session.add(new_recording)
@@ -149,6 +138,25 @@ def save_file():
     return "success!"
 
 
+# @app.route('/<int:user_id>/visualization', methods=['POST',])
+# def save_file():
+#     """Name and save audio file to S3"""
+
+#     if request.method == 'POST':
+#         file = request.files['file']
+#         filename = secure_filename('%s' % int(time.time()) + '.wav')
+
+#         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+#         user_id = session["user_id"] 
+#         new_recording = Recording(file_path=file_path, user_id=user_id)
+        
+
+#         db.session.add(new_recording)
+#         db.session.commit()
+
+#     k = b.new_key(filename)
+#     k.set_contents_from_file(file)
+#     return "success!"
 
 # @app.route("/")
 # def record_message():
