@@ -138,59 +138,13 @@ def save_file():
     return "success!"
 
 
-# @app.route('/<int:user_id>/visualization', methods=['POST',])
-# def save_file():
-#     """Name and save audio file to S3"""
+@app.route("/visualize")
+def visualize_data():
+    """d3 visualization of user's answers"""
 
-#     if request.method == 'POST':
-#         file = request.files['file']
-#         filename = secure_filename('%s' % int(time.time()) + '.wav')
-
-#         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-#         user_id = session["user_id"] 
-#         new_recording = Recording(file_path=file_path, user_id=user_id)
-        
-
-#         db.session.add(new_recording)
-#         db.session.commit()
-
-#     k = b.new_key(filename)
-#     k.set_contents_from_file(file)
-#     return "success!"
-
-# @app.route("/")
-# def record_message():
-#     """Record message to be played as timer tone"""
+    return render_template("visualization.html")
 
 
-# # @app.route("/users")
-# # def users():
-# #     """List of users"""
-
-# #     return render_template("user_alarm.html", user=user)
-
-
-# @app.route("/record_message")
-# def record_message():
-#     """Record message to be played as timer tone"""
-
-#     # user = User.query.get(user_id)
-#     return render_template("make_recording.html")
-
-
-
-
-# @app.route("/recording_play")
-# def play_recording():
-#     """User's timer."""
-    
-#     user_id = session["user_id"]
-    
-#     recording = Recording.query.get(recorder_user_id=user_id)
-
-#     file_path = Recording.query.get(recording)
-
-#     return render_template("recording_play.html", file_path=file_path)
 
 
 if __name__ == "__main__":
