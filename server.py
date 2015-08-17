@@ -8,6 +8,7 @@ from  sqlalchemy.sql.expression import func, select
 from model import Recording, User, Category, Question, connect_to_db, db
 import os
 import random
+import csv
 from werkzeug.utils import secure_filename
 
 import boto
@@ -138,13 +139,48 @@ def save_file():
     return "success!"
 
 
+@app.route("/visualization_process")
+def visualization_process():
+    """Process d3 visualization of user's answers"""
+    recordings = Recording.query.all()
+    csvfile = cStringIO.StringIO()
+    headers = [
+        'recording_id',
+        'user_id',
+        'question_id',
+        'file_path',
+        'time_stamp'
+    ]
+    rows = []
+    for recording in recordings:
+        rows.append(
+            {
+                'recording_id': recording.recording_id,
+                'user_id': recording.user_id,
+                'question_id': recording.question_id,
+                'file_path': recording.file_path,
+                'time_stamp': recording.time_stamp
+            }
+        )
+    writer = csv.DictWriter(csvfile, headers)
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(
+            dict(
+                (k, v.encode('utf-8') if type(v) is unicode else v) for k, v in row.iteritems()
+            )
+        )
+    csvfile.seek(0)
+    return send_file(csvfile, attachment_filename='recordings_export.csv', as_attachment=True)
+
+
+
 @app.route("/visualize")
 def visualize_data():
     """d3 visualization of user's answers"""
 
+
     return render_template("visualization.html")
-
-
 
 
 if __name__ == "__main__":
