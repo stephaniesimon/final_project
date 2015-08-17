@@ -9,6 +9,7 @@ from model import Recording, User, Category, Question, connect_to_db, db
 import os
 import random
 import csv
+import sqlite3
 from werkzeug.utils import secure_filename
 
 import boto
@@ -139,40 +140,22 @@ def save_file():
     return "success!"
 
 
-@app.route("/visualization_process")
+@app.route("/visualization_process", methods=['POST',])
 def visualization_process():
     """Process d3 visualization of user's answers"""
-    recordings = Recording.query.all()
-    csvfile = cStringIO.StringIO()
-    headers = [
-        'recording_id',
-        'user_id',
-        'question_id',
-        'file_path',
-        'time_stamp'
-    ]
-    rows = []
-    for recording in recordings:
-        rows.append(
-            {
-                'recording_id': recording.recording_id,
-                'user_id': recording.user_id,
-                'question_id': recording.question_id,
-                'file_path': recording.file_path,
-                'time_stamp': recording.time_stamp
-            }
-        )
-    writer = csv.DictWriter(csvfile, headers)
-    writer.writeheader()
-    for row in rows:
-        writer.writerow(
-            dict(
-                (k, v.encode('utf-8') if type(v) is unicode else v) for k, v in row.iteritems()
-            )
-        )
-    csvfile.seek(0)
-    return send_file(csvfile, attachment_filename='recordings_export.csv', as_attachment=True)
+  
+    con = sqlite3.connect('chime2.db')
+    outfile = open('recordings.csv', 'wb')
+    outcsv = csv.writer(outfile)
 
+    cursor = con.execute('select * from recordings')
+
+    # dump rows
+    outcsv.writerows(cursor.fetchall())
+
+    outfile.close()
+
+    return redirect("/visualize")
 
 
 @app.route("/visualize")
