@@ -143,7 +143,7 @@ def save_file():
 
 
 @app.route("/visualization_process.csv", methods=['GET',])
-def visualization_process():
+def process_csv():
     """Process d3 visualization of user's answers"""
   
     outfile = StringIO()
