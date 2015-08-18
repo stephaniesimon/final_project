@@ -3,12 +3,13 @@
 
 #from jinja2 import StrictUndefined
 
-from flask import Flask, flash, redirect, render_template, request, url_for, session
+from flask import Flask, flash, redirect, jsonify, render_template, request, url_for, session
 from  sqlalchemy.sql.expression import func, select
 from model import Recording, User, Category, Question, connect_to_db, db
 import os
 import random
 import csv
+import sys
 import sqlite3
 from werkzeug.utils import secure_filename
 
@@ -25,8 +26,6 @@ b = c.get_bucket('boto-demo-1438909409')
 UPLOAD_FOLDER = 'https://s3.amazonaws.com/boto-demo-1438909409'
 ALLOWED_EXTENSIONS = set(['wav'])
 
-
-
 # from flask_debugtoolbar import DebugToolbarExtension
 
 
@@ -34,6 +33,8 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = "ABC"
+
+
 
 #app.jinja_env.undefined = StrictUndefined
 
@@ -145,17 +146,28 @@ def visualization_process():
     """Process d3 visualization of user's answers"""
   
     con = sqlite3.connect('chime2.db')
-    outfile = open('recordings.csv', 'wb')
+    outfile = open('seed_data/recordings.csv', 'wb')
     outcsv = csv.writer(outfile)
 
-    cursor = con.execute('select * from recordings')
-
+    cursor = con.execute('select r.user_id, r.question_id, r.file_path, q.question_text from recordings as r join questions as q on r.question_id=q.question_id')
+    
     # dump rows
     outcsv.writerows(cursor.fetchall())
 
     outfile.close()
 
     return redirect("/visualize")
+
+
+@app.route("/recordings.json")
+def recordings_json():
+    test_dict = []
+    with open('seed_data/recordings.csv', 'rb') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+        for row in reader:
+            test_dict.append(row)
+
+    return jsonify(data_list=test_dict)
 
 
 @app.route("/visualize")
@@ -178,5 +190,6 @@ if __name__ == "__main__":
 
     # Use the DebugToolbar
     #DebugToolbarExtension(app)
+
 
     app.run()

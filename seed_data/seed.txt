@@ -7,7 +7,7 @@ What's your main fault? | IDENTITY
 What's your favourite occupation? | IDENTITY	
 What's your idea of happiness? | IDENTITY
 What's your idea of misery? | IDENTITY	
-If not yourself, who would you be? | FUN	
+If not yourself who would you be? | FUN	
 Where would you like to live? | ASPIRATION	
 What's your favourite colour and flower? | FUN	
 What's your favorite bird? | FUN
