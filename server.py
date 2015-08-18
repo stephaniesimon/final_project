@@ -146,47 +146,18 @@ def save_file():
 def visualization_process():
     """Process d3 visualization of user's answers"""
   
-    # con = sqlite3.connect('chime2.db')
-
-    #outfile = open('seed_data/recordings.csv', 'wb')
     outfile = StringIO()
     outcsv = csv.writer(outfile)
-
-    # cursor = con.execute("""
-    #  Select r.user_id, 
-    #         r.question_id, 
-    #         r.file_path, 
-    #         q.question_text 
-    # from recordings as r join questions as q on r.question_id=q.question_id
-    # WHERE r.user_id = ?""", [THEUSERID])
-
     results = db.session.query(Recording.user_id,
                                Recording.question_id,
                                Recording.file_path,
                                Question.question_text).join(Question).filter(Recording.user_id == session['user_id'])
-        
-    # dump rows
+    
     # outcsv.writerow(["foo","bar","zork"])
-    # outcsv.writerows(cursor.fetchall())
     outcsv.writerows(results.all())
 
     outfile.seek(0)
     return outfile.read()
-
-    #outfile.close()
-
-    #return redirect("/visualize")
-
-
-# @app.route("/recordings.json")
-# def recordings_json():
-#     test_dict = []
-#     with open('seed_data/recordings.csv', 'rb') as csvfile:
-#         reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-#         for row in reader:
-#             test_dict.append(row)
-
-#     return jsonify(data_list=test_dict)
 
 
 @app.route("/visualize")
