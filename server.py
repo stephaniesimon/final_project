@@ -153,7 +153,9 @@ def process_csv():
                                Recording.file_path,
                                Question.question_text).join(Question).filter(Recording.user_id == session['user_id'])
     
-    # outcsv.writerow(["foo","bar","zork"])
+    outcsv.writerow(["user_id","question_id","file_path", "question_text"])
+    # print results.all()
+
     outcsv.writerows(results.all())
 
     outfile.seek(0)
@@ -165,7 +167,7 @@ def visualize_data():
     """d3 visualization of user's answers"""
 
 
-    return render_template("visualization.html")
+    return render_template("test_visualization_bubbles.html")
 
 
 if __name__ == "__main__":
