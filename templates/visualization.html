@@ -13,8 +13,7 @@
 
 <script>
 
-$.get("/recordings.json", function(json_data) {
-  var data = json_data["data_list"];
+d3.csv('/visualization_process.csv', function (data) {
   console.log(data);
   var width = 800, height = 800;
   var fill = d3.scale.ordinal().range(['#827d92','#2a3285','#383435'])
@@ -27,7 +26,6 @@ $.get("/recordings.json", function(json_data) {
      data[j].x = Math.random() * width; //B
      data[j].y = Math.random() * height; //C
    }
-
 });
 
 

@@ -3,6 +3,7 @@
 
 #from jinja2 import StrictUndefined
 
+from cStringIO import StringIO
 from flask import Flask, flash, redirect, jsonify, render_template, request, url_for, session
 from  sqlalchemy.sql.expression import func, select
 from model import Recording, User, Category, Question, connect_to_db, db
@@ -141,33 +142,51 @@ def save_file():
     return "success!"
 
 
-@app.route("/visualization_process", methods=['POST',])
+@app.route("/visualization_process.csv", methods=['GET',])
 def visualization_process():
     """Process d3 visualization of user's answers"""
   
-    con = sqlite3.connect('chime2.db')
-    outfile = open('seed_data/recordings.csv', 'wb')
+    # con = sqlite3.connect('chime2.db')
+
+    #outfile = open('seed_data/recordings.csv', 'wb')
+    outfile = StringIO()
     outcsv = csv.writer(outfile)
 
-    cursor = con.execute('select r.user_id, r.question_id, r.file_path, q.question_text from recordings as r join questions as q on r.question_id=q.question_id')
-    
+    # cursor = con.execute("""
+    #  Select r.user_id, 
+    #         r.question_id, 
+    #         r.file_path, 
+    #         q.question_text 
+    # from recordings as r join questions as q on r.question_id=q.question_id
+    # WHERE r.user_id = ?""", [THEUSERID])
+
+    results = db.session.query(Recording.user_id,
+                               Recording.question_id,
+                               Recording.file_path,
+                               Question.question_text).join(Question).filter(Recording.user_id == session['user_id'])
+        
     # dump rows
-    outcsv.writerows(cursor.fetchall())
+    # outcsv.writerow(["foo","bar","zork"])
+    # outcsv.writerows(cursor.fetchall())
+    outcsv.writerows(results.all())
 
-    outfile.close()
+    outfile.seek(0)
+    return outfile.read()
 
-    return redirect("/visualize")
+    #outfile.close()
+
+    #return redirect("/visualize")
 
 
-@app.route("/recordings.json")
-def recordings_json():
-    test_dict = []
-    with open('seed_data/recordings.csv', 'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-        for row in reader:
-            test_dict.append(row)
+# @app.route("/recordings.json")
+# def recordings_json():
+#     test_dict = []
+#     with open('seed_data/recordings.csv', 'rb') as csvfile:
+#         reader = csv.reader(csvfile, delimiter=',', quotechar='|')
+#         for row in reader:
+#             test_dict.append(row)
 
-    return jsonify(data_list=test_dict)
+#     return jsonify(data_list=test_dict)
 
 
 @app.route("/visualize")
