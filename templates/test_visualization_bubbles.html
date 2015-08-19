@@ -89,13 +89,16 @@
     var d = this.__data__;
 
     $tipInner.html(
-        '<pre>' + JSON.stringify({
-          namen: d.namen,
-          studiengang: d.studiengang,
-          arbeitstitel: d.arbeitstitel,
-          quellenart: d.quellenart,
-          quelle: d.quelle
-        }, undefined, 2) + '</pre>'
+
+            '<pre>' + d.question_text + '</pre>'
+
+        // '<pre>' + JSON.stringify({
+        //   namen: d.namen,
+        //   studiengang: d.studiengang,
+        //   arbeitstitel: d.arbeitstitel,
+        //   quellenart: d.quellenart,
+        //   quelle: d.quelle
+        // }, undefined, 2) + '</pre>'
     );
 
     updatePos(e);
@@ -142,7 +145,7 @@ function drawClusterForceLayout(data) {
 
   // custom data
   var nodes = data.map(function(d) {
-    var cluster = d.cluster = d.question_id;
+    var cluster = d.cluster = d.question_text; //legend text
     var total = 20;
     d.radius = Math.sqrt(total / Math.PI) * 10;
     if (!clusters[cluster] || (d.radius > clusters[cluster].radius)) { clusters[cluster] = d; }
