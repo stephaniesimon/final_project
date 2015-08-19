@@ -113,9 +113,11 @@
 
 $(document).on("click", 'svg circle', function(f){
     var d = this.__data__;
+    var audio = new Audio(d.file_path);
+    audio.play();
 
     // $('#recording').attr('src', d.file_path)
-    window.location = d.file_path;
+    // window.location = d.file_path;
 
     
     // get(0).play(d.file_path);
