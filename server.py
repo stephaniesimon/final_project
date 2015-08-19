@@ -1,7 +1,6 @@
 
 """Chime server"""
 
-#from jinja2 import StrictUndefined
 
 from cStringIO import StringIO
 from flask import Flask, flash, redirect, jsonify, render_template, request, url_for, session
@@ -166,8 +165,9 @@ def process_csv():
 def visualize_data():
     """d3 visualization of user's answers"""
 
-
-    return render_template("test_visualization_bubbles.html")
+    user_id = session["user_id"]
+    user = User.query.get(user_id) 
+    return render_template("visualization.html", user=user)
 
 
 if __name__ == "__main__":
