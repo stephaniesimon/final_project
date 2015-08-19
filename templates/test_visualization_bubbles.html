@@ -157,19 +157,6 @@ function drawClusterForceLayout(data) {
   // The largest node for each cluster.
   var clusters = {};
 
-  // generate random data
-  // var n = 200, // total number of nodes
-  //     m = 10, // number of distinct clusters
-  //     maxRadius = 10;
-
-  // var nodes = d3.range(n).map(function() {
-  //   var i = Math.floor(Math.random() * m),
-  //       r = Math.sqrt((i + 1) / m * -Math.log(Math.random())) * maxRadius,
-  //       d = {cluster: i, radius: r};
-  //   if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
-  //   return d;
-  // });
-
   // custom data
   var nodes = data.map(function(d) {
     var cluster = d.cluster = d.question_text; //legend text
@@ -209,10 +196,6 @@ function drawClusterForceLayout(data) {
   var svg = d3.select("body").select("svg")
       .attr("width", width)
       .attr("height", height);
-      .attr("xlink:href", function(u){
-        return u.url;}
-        )
-      })
       
 
   var node = svg.selectAll("circle")
