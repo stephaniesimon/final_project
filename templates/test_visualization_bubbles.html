@@ -107,16 +107,34 @@
         .one(touch? 'touchend' : 'mouseout', hide);
     $tip.show();
   });
+// })();
+
+$(document).on("click", 'svg circle', function(f){
+    var d = this.__data__;
+
+    $tipInner.html(
+
+            '<pre>' + d.file_path + '</pre>'
+
+    
+    );
+
+    // updatePos(e);
+    // $(document)
+    //     .on(touch ? 'touchmove' : 'mousemove', updatePos)
+    //     .one(touch? 'touchend' : 'mouseout', hide);
+    // $tip.show();
+  });
 })();
 
-function drawLegend(clusters, color) {
-  var ul = d3.select("#legend").append('ul').classed('clusters', 1);
-  ul.selectAll('li').data(Object.keys(clusters))
-    .enter()
-      .append('li')
-        .style('background-color', function(d) { return color(d); })
-        .text(String);
-}
+// function drawLegend(clusters, color) {
+//   var ul = d3.select("#legend").append('ul').classed('clusters', 1);
+//   ul.selectAll('li').data(Object.keys(clusters))
+//     .enter()
+//       .append('li')
+//         .style('background-color', function(d) { return color(d); })
+//         .text(String);
+// }
 
 // http://bl.ocks.org/mbostock/7882658
 function drawClusterForceLayout(data) {
@@ -244,7 +262,7 @@ function drawClusterForceLayout(data) {
     };
   }
 
-  window.drawLegend(clusters, color);
+  // window.drawLegend(clusters, color);
 }
 
 d3.csv('visualization_process.csv').get(function(error, data) {
