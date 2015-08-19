@@ -57,7 +57,7 @@
 </div>
 
 <audio id="recording">
-  <source type="audio/wav">
+  <source src="" type="audio/wav">
 </audio>
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -116,7 +116,10 @@
 $(document).on("click", 'svg circle', function(f){
     var d = this.__data__;
 
-    $('#recording').get(0).play(d.file_path);
+    $('#recording').attr('src', d.file_path)
+
+    
+    // get(0).play(d.file_path);
 
    
 
