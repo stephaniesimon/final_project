@@ -56,6 +56,10 @@
     </div>
 </div>
 
+<audio id="recording">
+  <source type="audio/wav">
+</audio>
+
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
@@ -112,12 +116,16 @@
 $(document).on("click", 'svg circle', function(f){
     var d = this.__data__;
 
-    $tipInner.html(
+    $('#recording').get(0).play(d.file_path);
 
-            '<pre>' + d.file_path + '</pre>'
+   
+
+    // $tipInner.html(
+
+    //         '<pre>' + d.file_path + '</pre>'
 
     
-    );
+    // );
 
     // updatePos(e);
     // $(document)
