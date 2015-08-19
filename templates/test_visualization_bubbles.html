@@ -56,9 +56,7 @@
     </div>
 </div>
 
-<audio id="recording">
-  <source src="" type="audio/wav">
-</audio>
+
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -211,6 +209,11 @@ function drawClusterForceLayout(data) {
   var svg = d3.select("body").select("svg")
       .attr("width", width)
       .attr("height", height);
+      .attr("xlink:href", function(u){
+        return u.url;}
+        )
+      })
+      
 
   var node = svg.selectAll("circle")
       .data(nodes)
