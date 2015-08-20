@@ -35,7 +35,6 @@
   </form>
   
   
-  
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
@@ -50,12 +49,6 @@
 
   function startUserMedia(stream) {
     var input = audio_context.createMediaStreamSource(stream);
-    
-
-    // Uncomment if you want the audio to feedback directly
-    //input.connect(audio_context.destination);
-    //__log('Input connected to audio context destination.');
-     // Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear splitting feedback
     
     recorder = new Recorder(input);
   }
@@ -103,17 +96,6 @@
     })
 
     }
-
-//   function sendQuestionIdToServer(evt) {
-//     var question_id = "{{ question_id }}";
-//     $.post('/save_question_id', question_id);
-//   }
-
-// $('#submit_answer').on('click', sendQuestionIdToServer);
-
-
-    
-
 
   window.onload = function init() {
     try {

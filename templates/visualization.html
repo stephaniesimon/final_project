@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
 <style>
 #tooltip {
   font-size: 14px;
@@ -10,6 +11,7 @@
   position:absolute;
   padding:5px;
   z-index:100000;
+  font-family: 'La Belle Aurore', cursive;
 
   div {
     color:#fff;
@@ -25,17 +27,7 @@
   }
 }
 
-#legend {
-  ul.clusters {
-    list-style: none;
-    padding: 0;
-    li {
-      padding: 0.4em 0.8em;
-      color: #fff;
-      font-weight: bold;
-    }
-  }
-}
+
 </style>
 </head>
 <body>
@@ -61,7 +53,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
-// add tool tip
+
 (function() {
   var $body, $tip, $tipInner, touch = false;
 
@@ -113,7 +105,7 @@ $(document).on("click", 'svg circle', function(f){
 
 
 function drawClusterForceLayout(data) {
-  var width = 697,
+  var width = 1000,
       height = 500,
       padding = 6, // separation between same-color nodes
       clusterPadding = 18; // separation between different-color nodes
@@ -126,7 +118,7 @@ function drawClusterForceLayout(data) {
   // custom data
   var nodes = data.map(function(d) {
     var cluster = d.cluster = d.question_text; //legend text
-    var total = 20;
+    var total = 20; //size of node
     d.radius = Math.sqrt(total / Math.PI) * 10;
     if (!clusters[cluster] || (d.radius > clusters[cluster].radius)) { clusters[cluster] = d; }
     return d;
