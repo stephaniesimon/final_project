@@ -4,12 +4,12 @@ What are you favorite qualities in a woman? | RELATIONSHIPS
 What's your chief characteristic? | IDENTITY
 What do you appreciate the most in your friends? | RELATIONSHIPS	
 What's your main fault? | IDENTITY
-What's your favourite occupation? | IDENTITY	
+What's your favorite occupation? | IDENTITY	
 What's your idea of happiness? | IDENTITY
 What's your idea of misery? | IDENTITY	
 If not yourself who would you be? | FUN	
 Where would you like to live? | ASPIRATION	
-What's your favourite colour and flower? | FUN	
+What's your favorite color and flower? | FUN	
 What's your favorite bird? | FUN
 Who are your favorite poets? | CULTURE
 Who are your favorite heroes in fiction? | CULTURE
@@ -22,9 +22,30 @@ What are your favorite names? | FUN
 What do you hate the most? | IDENTITY	
 Who are the world history characters you hate the most? | CULTURE	
 What's the natural talent you'd like to be gifted with? | IDENTITY	
-How do you wish to die? | FUN
 What is your present state of mind? | IDENTITY
 For what fault have you most toleration? | RELATIONSHIPS	
 What's your favorite motto? | IDENTITY
 Who are your top three lady heroes? | CULTURE
 When you were little what did you want to be? | IDENTITY
+Who is your favorite mythological god/goddess? | CULTURE
+If you had the option of adopting a baby fox or baby koala - which one would you choose? | FUN
+What makes you feel afraid? | IDENTITY
+What’s the best book you’ve read so far this year? Ever? | CULTURE
+Who was your first crush? | RELATIONSHIPS
+Internet Explorer forever or permanently using an AOL e-mail address? | FUN
+If you could either be a duck or an owl which would you be? | FUN
+What do you love about yourself most? | IDENTITY
+Rugrats or Doug? | CULTURE
+Which house would you belong to in Game of Thrones? Like very honestly. | CULTURE
+If you got a (new) tattoo, what would it be of? | IDENTITY
+What would you like to eat for your last meal? | FUN
+If you had to be on a reality TV show - which one would you choose? | CULTURE
+Who has influenced you the most? | RELATIONSHIPS
+What are your favorite lyrics? | CULTURE
+On the first day of ruling the world, what would you do? | FUN
+If you were forced to open a bakery, what would you name it? | FUN
+What’s the weirdest thing you’ve ever done on a date? | RELATIONSHIPS
+What do you hope to achieve by 50? | ASPIRATION
+What has been your best moment this year (so far)? | IDENTITY
+Would you rather be stuck in traffic for two hours or have Chipotle run out of guacamole forever? | FUN
+Who do you think should run for president in two years? | CULTURE

@@ -25,7 +25,7 @@ class Recording(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     question_id = db.Column(db.Integer, db.ForeignKey('questions.question_id'))
     file_path = db.Column(db.String(50))
-    time_stamp = db.Column(db.Time)
+    file_size = db.Column(db.Integer)
     
 
     user = db.relationship("User",
