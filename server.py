@@ -126,9 +126,9 @@ def show_next_question():
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
     question_text = str(unformatted_question[0])
-    # question_id = unformatted_question[1]
-    # user = User.query.get(user_id)
-    # session["question_id"] = question_id
+    question_id = unformatted_question[1]
+    user = User.query.get(user_id)
+    session["question_id"] = question_id
 
     return question_text
 
