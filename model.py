@@ -68,7 +68,7 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     category_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    category_name = db.Column(db.String(20), unique=True)
+    category_name = db.Column(db.String(30), unique=True)
     category_description = db.Column(db.String(300))
 
 
