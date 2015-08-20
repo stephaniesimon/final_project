@@ -17,7 +17,7 @@
 
   
   
-  <p>{{ question }}</p>
+  <p id="question_text">{{ question_text }}</p>
   
   <br><br>
 
@@ -39,8 +39,12 @@
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
 
- $('#next_question').click(function() {
-    location.reload();
+ $("#next_question").click(function() {
+    $.get('/next_question', function (data){
+
+      console.log(data);
+      $('#question_text').html(data);
+    })
 })
 
 

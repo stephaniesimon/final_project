@@ -117,17 +117,20 @@ def user_profile(user_id):
     user = User.query.get(user_id)
     session["question_id"] = question_id
 
-    return render_template("user_alarm.html", user=user, question=question_text, question_id=question_id)
+    return render_template("user_alarm.html", user=user, question_text=question_text, question_id=question_id)
 
 @app.route("/next_question")
 def show_next_question():
     """Show next question for user to answer when they click "Another question"""
+
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
     question_text = str(unformatted_question[0])
-    question_id = unformatted_question[1]
-    user = User.query.get(user_id)
-    session["question_id"] = question_id
+    # question_id = unformatted_question[1]
+    # user = User.query.get(user_id)
+    # session["question_id"] = question_id
+
+    return question_text
 
 @app.route("/save_recording", methods=['POST',])
 def save_file():
