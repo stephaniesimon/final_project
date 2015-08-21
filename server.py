@@ -149,6 +149,10 @@ def save_file():
 
     k = b.new_key(filename)
     k.set_contents_from_file(file)
+    k = b.lookup(filename)
+    file_size_for_audio = k.size
+    new_recording.file_size = file_size_for_audio
+    db.session.commit()
     return "success!"
 
 
@@ -161,9 +165,10 @@ def process_csv():
     results = db.session.query(Recording.user_id,
                                Recording.question_id,
                                Recording.file_path,
+                               Recording.file_size,
                                Question.question_text).join(Question).filter(Recording.user_id == session['user_id'])
     
-    outcsv.writerow(["user_id","question_id","file_path", "question_text"])
+    outcsv.writerow(["user_id","question_id","file_path", "file_size", "question_text"])
     # print results.all()
 
     outcsv.writerows(results.all())

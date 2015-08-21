@@ -118,7 +118,7 @@ function drawClusterForceLayout(data) {
   // custom data
   var nodes = data.map(function(d) {
     var cluster = d.cluster = d.question_text; //legend text
-    var total = 20; //size of node
+    var total = d.file_size/4000; //size of node
     d.radius = Math.sqrt(total / Math.PI) * 10;
     if (!clusters[cluster] || (d.radius > clusters[cluster].radius)) { clusters[cluster] = d; }
     return d;
