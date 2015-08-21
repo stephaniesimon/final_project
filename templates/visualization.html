@@ -110,7 +110,9 @@ function drawClusterForceLayout(data) {
       padding = 6, // separation between same-color nodes
       clusterPadding = 18; // separation between different-color nodes
 
-  var color = d3.scale.category20();
+  var color = d3.scale.category10();
+
+  
 
   // The largest node for each cluster.
   var clusters = {};
@@ -159,8 +161,21 @@ function drawClusterForceLayout(data) {
   var node = svg.selectAll("circle")
       .data(nodes)
     .enter().append("circle")
-      .style("fill", function(d) { return color(d.cluster); })
+      .style("fill", function(d) { return color(d.category_name);})
       .call(force.drag);
+
+    //   if d.question_text === "RELATIONSHIPS": //need to query for category name when creating cs
+    //   return "red"
+    // if d.question_text === "CULTURE":
+    //   return "blue"
+    // if d.question_text === "IDENTITY":
+    //   return "green"
+    // if d.question_text === "ASPIRATION":
+    //   return "yellow"
+    // if d.question_text === "FUN":
+    //   return "orange"
+
+     
 
   node.transition()
       .duration(750)

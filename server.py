@@ -166,9 +166,10 @@ def process_csv():
                                Recording.question_id,
                                Recording.file_path,
                                Recording.file_size,
-                               Question.question_text).join(Question).filter(Recording.user_id == session['user_id'])
+                               Question.question_text,
+                               Category.category_name).join(Question).join(Category).filter(Recording.user_id == session['user_id'])
     
-    outcsv.writerow(["user_id","question_id","file_path", "file_size", "question_text"])
+    outcsv.writerow(["user_id","question_id","file_path", "file_size", "question_text", "category_name"])
     # print results.all()
 
     outcsv.writerows(results.all())
