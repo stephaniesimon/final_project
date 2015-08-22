@@ -1,145 +1,153 @@
 <!DOCTYPE html>
-
-<html>
+<meta charset="utf-8">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Chime</title>
-  <style type='text/css'>
-    ul { list-style: none; }
-    #recordingslist audio { display: block; margin-bottom: 10px; }
-  </style>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+  #tooltip {
+  font-size: 14px;
+  line-height: 1.5em;
+  position:absolute;
+  padding:5px;
+  z-index:100000;
+  font-family: 'La Belle Aurore', cursive;
+
+  div {
+    color:#fff;
+    padding:5px 8px 4px 8px;
+    text-align:left;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+
+    span {
+      font-weight:bold;
+    }
+  }
+}
+</style>
+
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12"><h1>Audio Journal <small>tell your story</small></h1></div>
+      <div class="col-md-9">
 
-  <h1>Chime: Wake up, together.</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
 
-  <p>Why wake up to the same beeping every day?</p>
-  <p>Record a message for your friends to wake up to</p>
- 
+var width = 960,
+    height = 500,
+    padding = 1.5, // separation between same-color nodes
+    clusterPadding = 6, // separation between different-color nodes
+    maxRadius = 12;
 
-<h2>Recordings</h2>
-  <button onclick="startRecording(this);">record</button>
-  <button onclick="stopRecording(this);" disabled>stop</button>
-  
-  
-  <ul id="recordingslist"></ul>
+var n = 50, // total number of nodes
+    m = 10; // number of distinct clusters
 
-  
-  <h2>Log</h2>
-  <pre id="log"></pre>
+var color = d3.scale.category20()
+    .domain(d3.range(m));
 
-  <script>
-  function __log(e, data) {
-    log.innerHTML += "\n" + e + " " + (data || '');
-  }
+// The largest node for each cluster.
+var clusters = new Array(m);
 
-  var audio_context;
-  var recorder;
+var nodes = d3.range(n).map(function() {
+  var i = Math.floor(Math.random() * m),
+      r = Math.sqrt((i + 20) / m * -Math.log(Math.random())) * maxRadius,
+      d = {cluster: i, radius: r};
+  if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
+  return d;
+});
 
-  function startUserMedia(stream) {
-    var input = audio_context.createMediaStreamSource(stream);
-    __log('Media stream created.');
+// Use the pack layout to initialize node positions.
+d3.layout.pack()
+    .sort(null)
+    .size([width, height])
+    .children(function(d) { return d.values; })
+    .value(function(d) { return d.radius * d.radius; })
+    .nodes({values: d3.nest()
+      .key(function(d) { return d.cluster; })
+      .entries(nodes)});
 
-    // Uncomment if you want the audio to feedback directly
-    //input.connect(audio_context.destination);
-    //__log('Input connected to audio context destination.');
-     // Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear splitting feedback
-    
-    recorder = new Recorder(input);
-    __log('Recorder initialised.');
-  }
+var force = d3.layout.force()
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(.02)
+    .charge(0)
+    .on("tick", tick)
+    .start();
 
-  function startRecording(button) {
-    recorder && recorder.record();
-    button.disabled = true;
-    button.nextElementSibling.disabled = false;
-    __log('Recording...');
-  }
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-  function stopRecording(button) {
-    recorder && recorder.stop();
-    button.disabled = true;
-    button.previousElementSibling.disabled = false;
-    __log('Stopped recording.');
-    
-    // create WAV download link using audio data blob
-    sendBlobToServer();
-    
-    recorder.clear();
-  }
+var node = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .style("fill", function(d) { return color(d.cluster); })
+    .call(force.drag);
 
-  // function createDownloadLink() {
-  //   recorder && recorder.exportWAV(function(blob) {
+node.transition()
+    .duration(750)
+    .delay(function(d, i) { return i * 5; })
+    .attrTween("r", function(d) {
+      var i = d3.interpolate(0, d.radius);
+      return function(t) { return d.radius = i(t); };
+    });
 
-  //     //   audio_file = BinaryFileReader.read(blob);
-  //     //   console.log("Audio uploaded");
-  //     // }
-  //     var url = URL.createObjectURL(blob);
-  //     console.log(url);
-  //     var li = document.createElement('li');
-  //     var au = document.createElement('audio');
-  //     var hf = document.createElement('a');
-      
-  //     au.controls = true;
-  //     au.src = url;
-  //     hf.href = url;
-  //     hf.download = new Date().toISOString() + '.wav';
-  //     hf.innerHTML = hf.download;
-  //     li.appendChild(au);
-  //     li.appendChild(hf);
-  //     recordingslist.appendChild(li);
-  //   });
-  // }
-    function sendBlobToServer() {
-      recorder && recorder.exportWAV(function (blob) {
-        console.log(blob);
-        var formData = new FormData();
+function tick(e) {
+  node
+      .each(cluster(10 * e.alpha * e.alpha))
+      .each(collide(.5))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+}
 
-        formData.append('file', blob, 'test.wav');
+// Move d to be adjacent to the cluster node.
+function cluster(alpha) {
+  return function(d) {
+    var cluster = clusters[d.cluster];
+    if (cluster === d) return;
+    var x = d.x - cluster.x,
+        y = d.y - cluster.y,
+        l = Math.sqrt(x * x + y * y),
+        r = d.radius + cluster.radius;
+    if (l != r) {
+      l = (l - r) / l * alpha;
+      d.x -= x *= l;
+      d.y -= y *= l;
+      cluster.x += x;
+      cluster.y += y;
+    }
+  };
+}
 
-        //  function(data){
-        //   console.log("hey!");
-        // });
-
-        $.ajax({
-        url :  "/test2",
-        type: 'POST',
-        data:  formData,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-          console.log("success!");
-        },    
-        error: function() {
-          console.log("failure!");
+// Resolves collisions between d and all other circles.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
         }
-      });
-
-    })
-    }
-
-
-  window.onload = function init() {
-    try {
-      // webkit shim
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-      window.URL = window.URL || window.webkitURL;
-      
-      audio_context = new AudioContext;
-      __log('Audio context set up.');
-      __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-    } catch (e) {
-      alert('No web audio support in this browser!');
-    }
-    
-    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-      __log('No live audio input: ' + e);
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
     });
   };
-  </script>
+}
 
-  <script src="static/js/lib/recorder.js"></script>
-</body>
-</html>
+</script>

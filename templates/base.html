@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>{% block title %}q+audio{% endblock %}</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-	    	div {
-	    color:#fff;
-	    padding:5px 8px 4px 8px;
-	    text-align:left;
-	    border-radius:3px;
-	    -moz-border-radius:3px;
-	    -webkit-border-radius:3px;
-
-	}
-	</style>
-    <script src="http://code.jquery.com/jquery.js"></script>
-</head>
+	<head>
+	    <title>{% block title %}q+audio{% endblock %}</title>
+	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> 
+	    <link href="/static/style.css" rel="stylesheet">
+	</head>   
 <body>
+	<script src="http://code.jquery.com/jquery.js">
+	<div class="container-fluid">
 	<h1>q+audio</h1>
-	{% block content %}BODY CONTENT GOES HERE{% endblock %}
+	
     <footer>Copyright 2015</footer>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<!-- 1. Should I not link to any frameworks (keep in project directory instead)? -->
+<!-- 2. Question about node size - Thomas' suggestion -->
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->

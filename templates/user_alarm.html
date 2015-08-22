@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+
 <!DOCTYPE html>
-<!-- <html>
+<html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Chime</title>
@@ -9,20 +9,18 @@
     #recordingslist audio { display: block; margin-bottom: 10px; }
   </style>
 
-</head> -->
+</head>
 <body>
   
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12"><h1>{{ user.first_name }}'s <small>answer some questions and then click "visualize"</small></h1></div>
-      <div class="col-md-9">
+  <h1>{{ user.first_name }}'s</h1> 
+  <p>answer some questions and then click "visualize"</p>
   
-  {% block content %}
+  
   
   <p id="question_text">{{ question_text }}</p> 
 
-  {% endblock %}
+  
   <br><br>
 
   <button onclick="startRecording(this);">Record</button>
