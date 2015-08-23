@@ -1,48 +1,29 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-  #tooltip {
-  font-size: 14px;
-  line-height: 1.5em;
-  position:absolute;
-  padding:5px;
-  z-index:100000;
-  font-family: 'La Belle Aurore', cursive;
+{% extends 'base.html' %}
+{% block content %}
 
-  div {
-    color:#fff;
-    padding:5px 8px 4px 8px;
-    text-align:left;
-    border-radius:3px;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-
-    span {
-      font-weight:bold;
-    }
-  }
-}
-</style>
-
-</head>
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12"><h1>Audio Journal <small>tell your story</small></h1></div>
-      <div class="col-md-9">
+  <div id="headerwrap">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12"><h1>Audio Journal <span>tell your story</span></h1></div>
+            <div class="col-md-9">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script>
 
-var width = 960,
+var width = 1400,
     height = 500,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 6, // separation between different-color nodes
     maxRadius = 12;
 
-var n = 50, // total number of nodes
+var n = 20, // total number of nodes
     m = 10; // number of distinct clusters
 
 var color = d3.scale.category20()
@@ -151,3 +132,4 @@ function collide(alpha) {
 }
 
 </script>
+{% endblock %}

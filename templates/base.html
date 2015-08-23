@@ -1,21 +1,65 @@
 <!DOCTYPE html>
-<html>
-	<head>
-	    <title>{% block title %}q+audio{% endblock %}</title>
-	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"> 
-	    <link href="/static/style.css" rel="stylesheet">
-	</head>   
-<body>
-	<script src="http://code.jquery.com/jquery.js">
-	<div class="container-fluid">
-	<h1>q+audio</h1>
-	
-    <footer>Copyright 2015</footer>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>Mirror</title>
+
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css"
+          rel="stylesheet">
+
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+   <nav class="navbar navbar-inverse" style="margin-bottom: 0px">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <span class="glyphicon glyphicon-eye-open"></span>
+                Mirror
+            </a>
+        </div>
+   <div class="collapse navbar-collapse"
+             id="bs-example-navbar-collapse-1">
+     
+            <ul class="nav navbar-nav navbar-right">
+              {% if "user_id" in session %}
+                  <li><a href="/users/{{ session['user_id'] }}">Answer questions</a></li>
+                  <li><a href="/logout">Logout</a></li>
+              {% else %}
+                  <li><a href="/register">Register</a></li>
+                  <li><a href="/login">Login</a></li>
+              {% endif %}
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div id="extending">
+    {% for flash in get_flashed_messages() %}
+      <div class="alert alert-danger" style="width:90%; margin:0 auto;">{{ flash }}</div>
+    {% endfor %}
+{% block content %}
+{% endblock %}
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 </body>
 </html>
-
-<!-- 1. Should I not link to any frameworks (keep in project directory instead)? -->
-<!-- 2. Question about node size - Thomas' suggestion -->
-<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
