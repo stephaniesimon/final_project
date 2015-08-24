@@ -1,5 +1,5 @@
 html {
-	background:#EAF5FF url(../images/body4.jpg) no-repeat center center fixed; 
+	background:transparent; 
 	min-height:100%;
 	-webkit-background-size: cover;
 	   -moz-background-size: cover;
@@ -17,8 +17,8 @@ body {
 	line-height: 1.5em;
 	font-size:14px;
 	font-family: 'Lato', 300;
-	color:#3B3D40;
-	color:#3B3D40; 
+	color:#262626;
+	color:#DBDBDB; 
 	font-weight: normal;
 	margin: 0;
     padding: 0;
@@ -27,7 +27,7 @@ body {
 
 h1 {
 	text-align : center;
-	font-color: #3B3D40;
+	font-color: #DBDBDB;
 }
 
 
@@ -138,7 +138,7 @@ h1 {
 /********************************************************/
 /*                      Typography                      */
 /********************************************************/
-a { color:#3B3D40; text-decoration: none; }
+a { color:#DBDBDB; text-decoration: none; }
 a:hover, a:active { color:#fff; text-decoration: underline; }
 .lead { 
 	font-weight:normal;
@@ -152,7 +152,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	font-weight:normal;
 	font-size:4em;
 	margin-bottom:15px; 
-	color:#3B3D40; 
+	color:#DBDBDB; 
 	line-height:1em;
 }
 .subtitle { 
@@ -186,7 +186,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	border:0 none;
+	border:30;
 }
 .btn:hover {
 	color:#000;
@@ -213,23 +213,6 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active {
 	background: rgba(255,255,255,.5);
-}
-
-
-
-/********************************************************/
-/*                 UI - Thumbnails                      */
-/********************************************************/
-.thumbnail {
-	background-color: rgba(255,255,255,.2);
-	border: 0 none;
-	padding:10px;
-	-webkit-border-radius: 2px;
-	   -moz-border-radius: 2px;
-	        border-radius: 2px;
-}
-.thumbnail .caption {
-	color: inherit;
 }
 
 
@@ -270,4 +253,29 @@ form {
 }
 
 
+/***********************************************************/
+/*                   Visualization                 		   */
+/***********************************************************/
+
+#tooltip {
+  font-size: 14px;
+  line-height: 1.5em;
+  position:absolute;
+  padding:5px;
+  z-index:100000;
+  font-family: 'Reenie+Beanie';
+
+  div {
+    color:#fff;
+    padding:5px 8px 4px 8px;
+    text-align:left;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+
+    span {
+      font-weight:bold;
+    }
+  }
+}
 

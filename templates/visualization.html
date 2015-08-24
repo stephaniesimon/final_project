@@ -36,17 +36,20 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12"><h1>{{ user.first_name }}'s <small>audio journal</small></h1></div>
-      <div class="col-md-9">
+      <div class="col-md-9"></div>
 
         <svg></svg>
 
-      </div>
-      <!-- <div class="col-md-3">
-        <div id="legend">
+      <div class="col-md-3">
+      <div id="legend">
 
-        </div> -->
+        </div>
       </div>
     </div>
+    <audio>
+      <source id="music" src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
+    </audio>
+    <button id="controller">background tunes</button>
 </div>
 
 
@@ -54,6 +57,17 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
+var audioplayer = new Audio("http://datashat.net/music_for_programming_33-uuav.mp3");
+$('#controller').on("click", function () {
+  if (audioplayer.paused) {
+       audioplayer.play();
+  }   
+  else {
+     audioplayer.pause();
+  }
+  $(this).toggleClass('pause'); 
+
+});
 
 (function() {
   var $body, $tip, $tipInner, touch = false;
@@ -103,6 +117,8 @@ $(document).on("click", 'svg circle', function(f){
 
   });
 })();
+
+
 
 
 function drawClusterForceLayout(data) {
