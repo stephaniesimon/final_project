@@ -25,6 +25,8 @@
     span {
       font-weight:bold;
     }
+    #controller
+    #controller.pause
   }
 }
 
@@ -33,12 +35,13 @@
 </head>
 <body> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12"><h1>{{ user.first_name }}'s <small>audio journal</small></h1></div>
-      <div class="col-md-9"></div>
-
-        <svg></svg>
+  <div class="row">
+      <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
+      <h1>{{ user.first_name }}'s <small>audio journal</small></h1>
+    
+      <svg></svg>
+    </div>
+  
 
       <div class="col-md-3">
       <div id="legend">
@@ -47,17 +50,22 @@
       </div>
     </div>
     <audio>
-      <source id="music" src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
+      <source id="music"  src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
     </audio>
-    <button id="controller">background tunes</button>
+    <button id="controller" class="pause">background tunes</button>
+
+    <a class="twitter-share-button"
+    href="https://twitter.com/intent/tweet?text=Check%20out%20my%20Showtell!">
+Tweet</a>
 </div>
+
 
 
 
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
-var audioplayer = new Audio("http://datashat.net/music_for_programming_33-uuav.mp3");
+var audioplayer = new Audio("http://junglesvibe.net/audiod/259697249/321398415/Tycho-Awake.mp3");
 $('#controller').on("click", function () {
   if (audioplayer.paused) {
        audioplayer.play();
