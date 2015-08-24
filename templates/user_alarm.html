@@ -1,19 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Chime</title>
-  <style type='text/css'>
-    ul { list-style: none; }
-    #recordingslist audio { display: block; margin-bottom: 10px; }
-  </style>
+<div class="loader">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+  <div class="bar4"></div>
+  <div class="bar5"></div>
+  <div class="bar6"></div>
+</div>
 
-</head>
-<body>
+<main>
+  <div class="-content -index">
+    <div>
+      <a href="#" class="btn js-trigger-transition">Begin Transition</a>
+    </div>
+  </div>
+</main>
+
   
-
-  <h1>{{ user.first_name }}'s</h1> 
+  
+  <h1 id="headerwrap">{{ user.first_name }}'s</h1> 
   <p>answer some questions and then click "visualize"</p>
   
   
@@ -23,21 +30,23 @@
   
   <br><br>
 
-  <button onclick="startRecording(this);">Record</button>
-  <button id="submit_answer" onclick="stopRecording(this);" disabled>Submit Answer</button>
+  <button type="button" class="btn js-trigger-transition" onclick="startRecording(this);">Record</button>
+  <button type="button" class="btn btn-primary btn-lg outline" id="submit_answer" onclick="stopRecording(this);" disabled>Submit Answer</button>
 
   
 
   <!-- <ul id="recordingslist"></ul> -->
 
-  <button id="next_question">Another question!</button>
+  <br><br>
+
+  <button type="button" class="btn btn-primary btn-lg outline" id="next_question">Another question!</button>
 
   <form action="/visualize" method="GET">
-  <input type="submit" value="Visualize!">
+  <input type="button" id="visualize" class="btn btn-primary btn-lg outline" type="submit" value="Visualize!">
   </form>
   
   
-
+{% endblock %}
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
 

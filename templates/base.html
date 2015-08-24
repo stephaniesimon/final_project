@@ -8,37 +8,26 @@
     <title>Mirror</title>
 
     <!-- Bootstrap -->
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cyborg/bootstrap.min.css"
-          rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/flatly/bootstrap.min.css"
+          rel="stylesheet"> -->
 
-	<link href="assets/css/style.css" rel="stylesheet">
-	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="static/css/style.css" rel="stylesheet">
+	<link href="static/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-   <nav class="navbar navbar-inverse" style="margin-bottom: 0px">
+   <nav>
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-                <span class="glyphicon glyphicon-eye-open"></span>
-                Mirror
-            </a>
-        </div>
-   <div class="collapse navbar-collapse"
+        <!-- Brand and toggle get grouped for better mobile display -->   
+  	<div class="collapse navbar-collapse"
              id="bs-example-navbar-collapse-1">
      
             <ul class="nav navbar-nav navbar-right">
               {% if "user_id" in session %}
                   <li><a href="/users/{{ session['user_id'] }}">Answer questions</a></li>
                   <li><a href="/logout">Logout</a></li>
+                  <li><a class="navbar-brand" href="/">Home</a></li>
               {% else %}
                   <li><a href="/register">Register</a></li>
                   <li><a href="/login">Login</a></li>
@@ -50,10 +39,10 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div id="extending">
+<!-- <div id="extending">
     {% for flash in get_flashed_messages() %}
       <div class="alert alert-danger" style="width:90%; margin:0 auto;">{{ flash }}</div>
-    {% endfor %}
+    {% endfor %} -->
 {% block content %}
 {% endblock %}
 </div>
