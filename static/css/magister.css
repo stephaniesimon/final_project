@@ -1,0 +1,273 @@
+html {
+	background:#EAF5FF url(../images/body4.jpg) no-repeat center center fixed; 
+	min-height:100%;
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+	     -o-background-size: cover;
+	        background-size: cover;
+
+}
+
+body {
+	background:transparent;
+	min-height:100%; 	
+	
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch;
+	line-height: 1.5em;
+	font-size:14px;
+	font-family: 'Lato', 300;
+	color:#3B3D40;
+	color:#3B3D40; 
+	font-weight: normal;
+	margin: 0;
+    padding: 0;
+    
+}
+
+h1 {
+	text-align : center;
+	font-color: #3B3D40;
+}
+
+
+/********************************************************/
+/*                    Navigation bar                    */
+/********************************************************/
+.mainmenu { z-index: 999999; width:100%;  padding: 30px 0 0 0;}
+@media (min-width: 768px) {
+	.mainmenu { position: fixed; }
+}
+
+.navbar-toggle {
+	position:relative;
+	float:left;
+	display:block;
+	padding: 9px 10px;
+	background: rgba(255, 255, 255, 0.2);
+	background-image: none;
+	border: 0 none;
+	top:0px; 
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+	outline: 0;
+	opacity: 1;
+	-webkit-transition: all .45s;
+	   -moz-transition: all .45s;
+	        transition: all .45s;
+	        float: left;
+}
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #3B3D40;
+}
+.navbar-toggle .icon-bar + .icon-bar {
+	margin-top: 4px;
+}
+.open .navbar-toggle { 
+	top:-70px; 
+	opacity: 0;  
+}
+.mainmenu .dropdown-menu {
+	top: -14em;
+	left: 0px;
+	font-size: 13px;
+	padding:0;
+	background:none;
+	border:0 none;
+	border-radius: 2px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	display:block;
+	opacity:0;
+	-webkit-transition: all .45s;
+	   -moz-transition: all .45s;
+	        transition: all .45s;
+}
+.mainmenu .dropdown-menu .active { 
+	font-weight:bold;
+}
+.mainmenu .open .dropdown-menu { 
+	top:2px;
+	opacity:1;
+}
+.mainmenu .dropdown-menu a { 
+	padding:10px 10px;
+	margin:0;
+	color:#3B3D40;
+	text-decoration: none;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+}
+.mainmenu .dropdown-menu a:hover { 
+	background:#FFD3D1;
+	color:#3B3D40;
+	padding:10px 8px 10px 12px;
+}
+
+
+
+/********************************************************/
+/*             Sections - universal classes             */
+/********************************************************/
+.section { 
+	z-index: 1;
+	min-height:420px;
+	width: 100%; 
+	overflow:auto;
+	height:100%;
+	padding-top:100px;
+	padding-bottom:50px; 
+	display:none;
+	top:0;
+} 
+@media (min-width: 768px) {
+	.section { padding-top:160px;}
+}
+
+/* Show one of sections */
+#head { 
+	display: block;
+}
+
+
+/********************************************************/
+/*                      Typography                      */
+/********************************************************/
+a { color:#3B3D40; text-decoration: none; }
+a:hover, a:active { color:#fff; text-decoration: underline; }
+.lead { 
+	font-weight:normal;
+	font-size:1.5em;
+	line-height:1.2em;
+}
+
+.title,
+.subtitle { 
+	font-family: 'Lato', 300;
+	font-weight:normal;
+	font-size:4em;
+	margin-bottom:15px; 
+	color:#3B3D40; 
+	line-height:1em;
+}
+.subtitle { 
+	line-height:.9em;
+	font-size:2em;
+	margin-top:0;
+	margin-bottom:40px; 
+}
+.tagline { 
+	font-size:1.4em;
+	line-height:1.3em;
+	font-weight:normal;
+	margin-bottom:75px;
+	font-family: 'Lato', 300;
+}
+
+@media (max-width: 767px) {
+	.lead { 
+		font-size:1.3em;
+	}
+}
+
+
+/********************************************************/
+/*                   UI - Buttons                       */
+/********************************************************/
+.btn{
+	color:#333;
+	text-shadow: none;
+	text-decoration: none;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border:0 none;
+}
+.btn:hover {
+	color:#000;
+}
+.btn-lg { 
+	padding:16px 30px;
+	font-size:inherit;
+}
+
+.btn-link {
+	color:rgba(255,255,255,.8);
+}
+.btn-link:hover, .btn-link:focus, .btn-link:active {
+	color:#fff
+}
+.btn-default {
+	background: rgba(255,255,255,.5);
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
+	background: rgba(255,255,255,.8);
+}
+.btn-primary {
+	background: rgba(255,255,255,.2);
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active {
+	background: rgba(255,255,255,.5);
+}
+
+
+
+/********************************************************/
+/*                 UI - Thumbnails                      */
+/********************************************************/
+.thumbnail {
+	background-color: rgba(255,255,255,.2);
+	border: 0 none;
+	padding:10px;
+	-webkit-border-radius: 2px;
+	   -moz-border-radius: 2px;
+	        border-radius: 2px;
+}
+.thumbnail .caption {
+	color: inherit;
+}
+
+
+
+/***********************************************************/
+/*                   Theme: text shadows                   */
+/***********************************************************/
+.text-shadows { 	
+	text-shadow:0 1px 2px rgba(0,0,0,.2);
+}
+.text-shadows .title,
+.text-shadows .subtitle,
+.text-shadows .tagline { 
+	text-shadow:0 2px 3px rgba(0,0,0,.4);
+}
+.text-shadows .mainmenu .dropdown-menu a { 
+	text-shadow:0 2px 1px rgba(0,0,0,.2);
+}
+.text-shadows .mainmenu .dropdown-menu a:hover { 
+	text-shadow:none;
+}
+
+
+/***********************************************************/
+/*                   Forms                 				   */
+/***********************************************************/
+
+form {
+
+	text-align: center;
+}
+
+#form-header {
+	margin: 0 auto;
+	 width: 300px;
+	 font-color: #3B3D40;
+	 font-family: 'Lato', 300;
+}
+
+
+
