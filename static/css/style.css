@@ -4,8 +4,28 @@
 @import url(http://fonts.googleapis.com/css?family=La+Belle+Aurore|Lato:400,300);
 @import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
 
+#tooltip {
+  font-size: 14px;
+  line-height: 1.5em;
+  position:absolute;
+  padding:5px;
+  z-index:100000;
+  font-family: 'Reenie Beanie', cursive;
+}
 
+div {
+    color:#fff;
+    padding:5px 8px 4px 8px;
+    text-align:left;
+    border-radius:3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
 
+    span {
+      font-weight:bold;
+    }
+  }
+}
 
 body {
     font-family: 'Lato';
@@ -79,75 +99,6 @@ form {
 	font-size: 50px;
 }
 
-
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 10px 16px;
+button {
+	color: blue;
 }
-  
-.btn-lg {
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #428bca;
-  border-color: #357ebd;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #3276b1;
-  border-color: #285e8e;
-}
-
-/***********************
-  OUTLINE BUTTONS
-************************/
-
-.btn.outline {
-    background: none;
-    padding: 12px 22px;
-}
-.btn-primary.outline {
-    border: 2px solid #0099cc;
-    /*color: #0099cc;*/
-}
-.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
-    /*color: #33a6cc;*/
-    border-color: #33a6cc;
-}
-.btn-primary.outline:active, .btn-primary.outline.active {
-    border-color: #007299;
-    color: #007299;
-    box-shadow: none;
-}
-
-/***********************
-  CUSTON BTN VALUES
-************************/
-
-
-.btn #visualize

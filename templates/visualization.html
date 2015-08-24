@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
 <style>
 #tooltip {
   font-size: 14px;
@@ -30,7 +31,7 @@
 
 </style>
 </head>
-<body>
+<body> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
   <div class="container">
     <div class="row">
@@ -237,5 +238,5 @@ d3.csv('visualization_process.csv').get(function(error, data) {
   window.drawClusterForceLayout(data);
 });
 </script>
-</body>
-</html>
+
+{% endblock %}
