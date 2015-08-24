@@ -1,52 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	
+	
+	<title>show+tell</title>
+	
+	<!-- Bootstrap itself -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-    <title>Mirror</title>
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="static/css/magister.css">
 
-    <!-- Bootstrap -->
-    <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/flatly/bootstrap.min.css"
-          rel="stylesheet"> -->
-
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    
-
-	<link href="static/css/style.css" rel="stylesheet">
-	<link href="static/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Fonts -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Lato:300|Reenie+Beanie' rel='stylesheet' type='text/css'>
 </head>
-<body>
-   <nav>
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->   
-  	<div class="collapse navbar-collapse"
-             id="bs-example-navbar-collapse-1">
-     
-            <ul class="nav navbar-nav navbar-right">
-              {% if "user_id" in session %}
-                  <li><a href="/users/{{ session['user_id'] }}">Answer questions</a></li>
-                  <li><a href="/logout">Logout</a></li>
-                  <li><a href="/">Home</a></li>
-              {% else %}
-                  <li><a href="/register">Register</a></li>
-                  <li><a href="/login">Login</a></li>
-              {% endif %}
 
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
+<!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
+<body class="theme-invert">
+
+<nav class="mainmenu">
+	<div class="container">
+		<div class="dropdown">
+			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				{% if "user_id" in session %}
+				<li><a href="/" class="active">Home</a></li>
+				<li><a href="/users/{{ session['user_id'] }}">Answer more questions</a></li>
+				<li><a href="/logout">Logout</a></li>
+				{% else %}
+				<li><a href="/register">Register</a></li>
+				<li><a href="/login">Login</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
 </nav>
-<!-- <div id="extending">
-    {% for flash in get_flashed_messages() %}
-      <div class="alert alert-danger" style="width:90%; margin:0 auto;">{{ flash }}</div>
-    {% endfor %} -->
 {% block content %}
 {% endblock %}
-</div>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
