@@ -18,7 +18,7 @@ body {
 	font-size:14px;
 	font-family: 'Lato', 300;
 	color:#262626;
-	color:#DBDBDB; 
+	color:#5F606B; 
 	font-weight: normal;
 	margin: 0;
     padding: 0;
@@ -138,7 +138,7 @@ h1 {
 /********************************************************/
 /*                      Typography                      */
 /********************************************************/
-a { color:#DBDBDB; text-decoration: none; }
+a { color:#5F606B; text-decoration: none; }
 a:hover, a:active { color:#fff; text-decoration: underline; }
 .lead { 
 	font-weight:normal;
@@ -152,7 +152,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 	font-weight:normal;
 	font-size:4em;
 	margin-bottom:15px; 
-	color:#DBDBDB; 
+	color:#5F606B; 
 	line-height:1em;
 }
 .subtitle { 
@@ -295,7 +295,7 @@ html, body{
 		.button{
 			background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
 			background-image: linear-gradient(top, #f4f1ee, #fff);
-			border-radius: 50%;
+			border-radius: 100%;
 			/*box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);*/
 			float:left;
 			height: 150px;
@@ -318,15 +318,21 @@ html, body{
 			width: 30px;
 		}
 
+		.next-question {
+			height: 75px;
+			width: 75px;
+			font-size: 15px;
+		}
+
 
 		.next-question:after{
-			content: "next question";
+			content: "skip question";
 			left: 25px;
 			top: 50px;
 		}
 
 		.visualize:after{
-			/*content: "visualize";*/
+			content: "visualize";
 			left: 25px;
 			top: 60px;
 		}
@@ -350,8 +356,8 @@ html, body{
 		}
 
 		.submit:hover:after{
-			color:#f94e66;
-			text-shadow:0px 0px 6px #f94e66;
+			color:#83d244;
+			text-shadow:0px 0px 6px #83d244;
 		}
 
 		.visualize:hover:after{
@@ -360,8 +366,8 @@ html, body{
 		}
 
 		.record:hover:after{
-			color:#83d244;
-			text-shadow:0px 0px 6px #83d244;
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
 		}
 
 		.next-question:hover:after{
@@ -374,11 +380,11 @@ html, body{
 		.button:active{
 			background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
 			background-image: linear-gradient(top, #efedec, #f7f4f4);
-			box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+			/*box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);*/
 		}
 
 		.button:active:after{
 			color:#dbd2d2;
-			text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+			/*text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;*/
 		}
 

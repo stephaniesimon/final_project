@@ -20,26 +20,34 @@
   
   <br><br>
 
-  <div class="buttonHolder">
   <button onclick="startRecording(this);" class="button record"></button>
   <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
-
+  <br><br> <br><br> <br><br>
   
 
   <button id="next_question" class="button next-question"></button>
 
   <form action="/visualize" method="GET">
-  <input type="submit" class="button visualize" label="Visualize">
+  <input type="submit" class="button visualize" value="visualize">
   </form>
 
   
-</div>
+
 
   
   
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
+
+ $("#submit_answer").click(function() {
+    $.get('/next_question', function (data){
+
+      console.log(data);
+      $('#question_text').html(data);
+    })
+})
+ 
 
  $("#next_question").click(function() {
     $.get('/next_question', function (data){
