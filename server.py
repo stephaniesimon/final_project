@@ -12,10 +12,12 @@ import csv
 import sys
 import sqlite3
 from werkzeug.utils import secure_filename
+from jinja2 import StrictUndefined
 
 import boto
 from boto.s3.key import Key
 import time
+
 
 
 # s3 connection and bucket definition
@@ -36,7 +38,7 @@ app.secret_key = "ABC"
 
 
 
-#app.jinja_env.undefined = StrictUndefined
+app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def index():
