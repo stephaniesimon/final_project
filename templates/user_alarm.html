@@ -1,30 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>{{ user.first_name }}'s</h1> 
-<p>answer some questions and then click "visualize"</p>
+
+<section class="section" id="head">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
+<h1>Hi, {{ user.first_name }}!</h1> 
+ <h3 class="tagline">
+          Answer fun questions about yourself.<br>
+          And then click "visualize" to see them come to life.
+        </h3>
   
   
   
-  <p id="question_text">{{ question_text }}</p> 
+  <h2 id="question_text">{{ question_text }}</h2> 
 
   
   <br><br>
 
-  <button onclick="startRecording(this);">Record</button>
-  <button id="submit_answer" onclick="stopRecording(this);" disabled>Submit Answer</button>
+  <div class="buttonHolder">
+  <button onclick="startRecording(this);" class="button record"></button>
+  <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
 
   
 
-  <!-- <ul id="recordingslist"></ul> -->
-
-  <button id="next_question">Another question!</button>
+  <button id="next_question" class="button next-question"></button>
 
   <form action="/visualize" method="GET">
-  <input type="submit" value="Visualize!">
+  <input type="submit" class="button visualize" label="Visualize">
   </form>
+
   
-  {% endblock %}
+</div>
+
+  
+  
 
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
  <script>
@@ -112,6 +124,6 @@
   </script>
 
   <script src="/static/js/lib/recorder.js"></script>
-  
+  {% endblock %}
 
  
