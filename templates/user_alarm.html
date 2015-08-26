@@ -28,6 +28,7 @@
   <button id="next_question" class="button next-question"></button>
 
   <form action="/visualize" method="GET">
+   <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
   <input type="submit" class="button visualize" value="visualize">
   </form>
 
@@ -47,7 +48,7 @@
       $('#question_text').html(data);
     })
 })
- 
+
 
  $("#next_question").click(function() {
     $.get('/next_question', function (data){

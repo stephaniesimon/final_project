@@ -172,7 +172,7 @@ def process_csv():
                                Category.category_name).join(Question).join(Category).filter(Recording.user_id == session['user_id'])
     
     outcsv.writerow(["user_id","question_id","file_path", "file_size", "question_text", "category_name"])
-    # print results.all()
+    
 
     outcsv.writerows(results.all())
 
@@ -184,6 +184,7 @@ def process_csv():
 def visualize_data():
     """d3 visualization of user's answers"""
 
+    # user_id = request.args["user_id"]
     user_id = session["user_id"]
     user = User.query.get(user_id) 
     return render_template("visualization.html", user=user)

@@ -19,7 +19,7 @@
 </head>
 
 <!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
-<body class="theme-invert">
+<body>
 
 <nav class="mainmenu">
 	<div class="container">
@@ -40,11 +40,10 @@
 	</div>
 </nav>
 
-{% block content %}
+{% block title %}
 {% endblock %}
-
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{% block vis %}
+{% endblock %}
 
 </body>
 </html>
