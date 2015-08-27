@@ -306,10 +306,10 @@ html, body{
 			border: 0;
 			box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
 			float:center;
-			height: 120px;
+			height: 75px;
 			margin: 0 30px 30px 0;
 			position: relative;
-			width: 120px;			
+			width: 75px;			
 			-webkit-transition: all .1s linear;
 			transition: all .1s linear;
 
@@ -427,7 +427,7 @@ html, body{
 		.pause:after {
 			content: "♫";
 			font-size: 40px;
-			top:45px;
+			top:30px;
 			left:2px;
 		}
 		
