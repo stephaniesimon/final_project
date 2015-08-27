@@ -2,30 +2,37 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	
 	<title>show+tell</title>
 	
 	<!-- Bootstrap itself -->
+
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-	<!-- Custom styles -->
-	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 
 	<!-- Fonts -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Lato:300|Reenie+Beanie' rel='stylesheet' type='text/css'>
+
+	<!-- Custom styles -->
+	<link rel="stylesheet" href="../static/css/style.css">
+
+	
 </head>
 
-<!-- use "theme-invert" class on bright backgrounds, also try "text-shadows" class -->
 <body>
 
 <nav class="mainmenu">
 	<div class="container">
 		<div class="dropdown">
 			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
 			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 				{% if "user_id" in session %}
 				<li><a href="/" class="active">Home</a></li>
@@ -40,7 +47,8 @@
 	</div>
 </nav>
 
-{% block title %}
+
+{% block content %}
 {% endblock %}
 {% block vis %}
 {% endblock %}

@@ -15,18 +15,16 @@
   
   
   
-  <h2 id="question_text">{{ question_text }}</h2> 
-
-  
+ <span><h2 id="question_text">{{ question_text }}</h2><button id="next_question" class="next-question"></button></span>
   <br><br>
-
+  
+  <div class="row">
+    
   <button onclick="startRecording(this);" class="button record"></button>
   <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
-  <br><br> <br><br> <br><br>
   
 
-  <button id="next_question" class="button next-question"></button>
-
+  <div class="row">
   <form action="/visualize" method="GET">
    <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
   <input type="submit" class="button visualize" value="visualize">

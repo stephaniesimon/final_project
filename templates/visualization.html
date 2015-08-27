@@ -1,46 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-<style>
-#tooltip {
-  font-size: 14px;
-  line-height: 1.5em;
-  position:absolute;
-  padding:5px;
-  z-index:100000;
-  font-family: 'La Belle Aurore', cursive;
 
-  div {
-    color:#fff;
-    padding:5px 8px 4px 8px;
-    text-align:left;
-    border-radius:3px;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-
-    span {
-      font-weight:bold;
-    }
-    #controller
-    #controller.pause
-  }
-}
-
-
-</style>
-</head>
-<body> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
   <div class="row">
       <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
       <h1>{{ user.first_name }}'s <small>audio journal</small></h1>
     
       <svg></svg>
-    </div>
+      </div>
   
 
       <div class="col-md-3">
@@ -49,10 +16,12 @@
         </div>
       </div>
     </div>
-    <audio>
+
+    <!-- <audio>
       <source id="music"  src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
-    </audio>
-    <button id="controller" class="pause">background tunes</button>
+    </audio> -->
+    <button id="controller" class="button pause"></button>
+
 <!-- 
     <a class="twitter-share-button"
     href="https://twitter.com/intent/tweet?text=Check%20out%20my%20Showtell!">
@@ -76,6 +45,20 @@ $('#controller').on("click", function () {
   $(this).toggleClass('pause'); 
 
 });
+
+function drawLegend(clusters, color) {
+  var ul = d3.select("#legend").append('ul').classed('clusters', 1).attr('class', "list-inline");
+  var categoryData = d3.set();
+  d3.values(clusters).forEach(function (clusterValue) {
+    categoryData.add(clusterValue.category_name);
+  });
+  ul.selectAll('li').data(categoryData.values())
+    .enter()
+      .append('li')
+        // .style('background-color', function(d) { return color(d); })
+        .text(String)
+        .style('color',function(d) { return color(d); });
+}
 
 (function() {
   var $body, $tip, $tipInner, touch = false;
@@ -256,6 +239,7 @@ function drawClusterForceLayout(data) {
       });
     };
   }
+  drawLegend(clusters, color);
 }
 
 d3.csv('visualization_process.csv').get(function(error, data) {
