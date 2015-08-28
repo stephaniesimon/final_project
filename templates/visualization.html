@@ -8,19 +8,26 @@
     
       <svg></svg>
       </div>
+    </div>
+  
+  <div class="row">
+      <div class="text-center">
+      <div id="legend"></div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="text-center">
+      <button id="controller" class="button music"></button></div>
+    </div>
   
 
-      <div class="text-center">
-      <div id="legend">
-
-        </div>
-      </div>
-    </div>
+        
 
     <!-- <audio>
       <source id="music"  src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
     </audio> -->
-    <button id="controller" class="button pause"></button>
+    
 
 <!-- 
     <a class="twitter-share-button"
@@ -34,7 +41,7 @@ Tweet</a>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
-var audioplayer = new Audio("http://datashat.net/music_for_programming_33-uuav.mp3");
+var audioplayer = new Audio("http://datashat.net/music_for_programming_1-datassette.mp3");
 $('#controller').on("click", function () {
   if (audioplayer.paused) {
        audioplayer.play();
@@ -43,6 +50,7 @@ $('#controller').on("click", function () {
      audioplayer.pause();
   }
   $(this).toggleClass('pause'); 
+
 
 });
 

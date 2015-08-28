@@ -1,5 +1,5 @@
 
-"""Chime server"""
+"""showtell server"""
 
 
 from cStringIO import StringIO
@@ -13,6 +13,7 @@ import sys
 import sqlite3
 from werkzeug.utils import secure_filename
 from jinja2 import StrictUndefined
+
 
 import boto
 from boto.s3.key import Key
@@ -125,13 +126,30 @@ def user_profile(user_id):
 def show_next_question():
     """Show next question for user to answer when they click "Another question"""
 
+    question_text, question_id = get_next_question_text()
+    session["next_question_id"] = question_id
+
+    return question_text
+
+@app.route("/refresh_question")
+def refresh_question():
+    """Show next question for user to answer when they click "Another question"""
+
+    question_text, question_id = get_next_question_text()
+    session["question_id"] = question_id
+
+    return question_text
+
+def get_next_question_text():
+    """Show next question text"""
+
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
     question_text = str(unformatted_question[0])
     question_id = unformatted_question[1]
-    session["question_id"] = question_id
+    
 
-    return question_text
+    return question_text, question_id
 
 @app.route("/save_recording", methods=['POST',])
 def save_file():
@@ -155,7 +173,10 @@ def save_file():
     file_size_for_audio = k.size
     new_recording.file_size = file_size_for_audio
     db.session.commit()
-    return "success!"
+
+    session["question_id"] = session.get("next_question_id")
+
+    return "success"
 
 
 @app.route("/visualization_process.csv", methods=['GET',])

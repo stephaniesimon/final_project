@@ -9,26 +9,35 @@
       <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
 <h1>Hi, {{ user.first_name }}!</h1> 
  <h3 class="tagline">
-          Answer fun questions about yourself.<br>
-          And then click "visualize" to see them come to life.
+          Answer fun questions about yourself!<br>
+          When you've answered a few, click the 🌈 to see them come to life.
         </h3>
   
   
   
- <span><h2 id="question_text">{{ question_text }}</h2><button id="next_question" class="next-question"></button></span>
+ <span><h2 id="question_text">{{ question_text }}</h2>
+  <button id="next_question" class="next-question"></button></span>
   <br><br>
+
+</div>
   
   <div class="row">
+    <div class="text-center">
     
   <button onclick="startRecording(this);" class="button record"></button>
   <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
+  </div>
+</div>
   
 
   <div class="row">
-  <form action="/visualize" method="GET">
+    <div class="text-center">
+  <form id="visualization-button-form" action="/visualize" method="GET">
    <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
-  <input type="submit" class="button visualize" value="visualize">
+  <input type="submit" class="button visualize" value="🌈"></input>
   </form>
+</div>
+</div>
 
   
 
@@ -36,40 +45,45 @@
   
   
 
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
- <script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="/static/js/lib/recorder.js"></script>
+<script>
 
  $("#submit_answer").click(function() {
     $.get('/next_question', function (data){
 
       console.log(data);
       $('#question_text').html(data);
-    })
-})
+    });
+});
 
 
  $("#next_question").click(function() {
-    $.get('/next_question', function (data){
+    $.get('/refresh_question', function (data){
 
       console.log(data);
       $('#question_text').html(data);
     })
-})
+});
 
 
  var audio_context;
   var recorder;
 
   function startUserMedia(stream) {
+    console.log("I'm the startUserMedia func");
     var input = audio_context.createMediaStreamSource(stream);
     
     recorder = new Recorder(input);
+    console.log("create recorder object");
+    
   }
 
   function startRecording(button) {
     recorder && recorder.record();
     button.disabled = true;
     button.nextElementSibling.disabled = false;
+    console.log("enter data into recorder");
   }
 
   function stopRecording(button) {
@@ -81,6 +95,7 @@
     // create WAV download link using audio data blob
     sendBlobToServer();
     // sendQuestionTextToServer();
+    console.log(recorder);
     recorder.clear();
   }
 
@@ -106,11 +121,12 @@
         }
       });
 
-    })
+    });
 
     }
 
   window.onload = function init() {
+    console.log("is onload running");
     try {
       // webkit shim
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -118,6 +134,7 @@
       window.URL = window.URL || window.webkitURL;
       
       audio_context = new AudioContext;
+      console.log(audio_context);
       // __log('Audio context set up.');
       // __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
     } catch (e) {
@@ -126,8 +143,11 @@
     
     navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
       // __log('No live audio input: ' + e);
+      console.log("getUserMedia failed");
+      console.log(e);
     });
   };
+
   </script>
 
   <script src="/static/js/lib/recorder.js"></script>

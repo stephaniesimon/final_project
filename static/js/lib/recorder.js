@@ -1,3 +1,5 @@
+console.log("this is imported");
+
 (function(window){
 
   var WORKER_PATH = '/static/js/lib/recorderWorker.js';

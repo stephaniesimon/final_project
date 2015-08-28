@@ -14,11 +14,12 @@
           And see your answers as pretty bubbles.
         </h3>
         
-        <button href="/login" class="button login"></button>
-        <button href="/register" class="button register"></button>
+        <a href="/login"><button class="button login"></button></a>
+        <a href="/register"><button class="button register"></button></a>
   
       </div> <!-- /col -->
-    </div> <!-- /row -->
+    </div>
+  </div> <!-- /row -->
 
 {% endblock %}
 {% block vis %}
@@ -26,16 +27,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script>
 
-var width = 960,
-    height = 500,
+var width = 1200,
+    height = 200,
     padding = 1.5, // separation between same-color nodes
     clusterPadding = 6, // separation between different-color nodes
     maxRadius = 12;
 
-var n = 200, // total number of nodes
+var n = 50, // total number of nodes
     m = 10; // number of distinct clusters
 
-var color = d3.scale.category10()
+var color = d3.scale.category20()
     .domain(d3.range(m));
 
 // The largest node for each cluster.
