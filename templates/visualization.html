@@ -1,46 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  
   <div class="row">
       <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
-      <h1>{{ user.first_name }}'s <small>audio journal</small></h1>
+        <h1>{{ user.first_name }}'s <small>audio journal</small></h1>
+
+        <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out my show+tell!">Tweet</a>
+      
     
       <svg></svg>
       </div>
-    </div>
-  
+  </div>
   <div class="row">
       <div class="text-center">
-      <div id="legend"></div>
+        <div id="legend"></div>
       </div>
   </div>
 
   <div class="row">
       <div class="text-center">
-      <button id="controller" class="button music"></button></div>
-    </div>
-  
-
-        
-
-    <!-- <audio>
-      <source id="music"  src="http://datashat.net/music_for_programming_33-uuav.mp3" type="audio/mpeg">
-    </audio> -->
-    
-
-<!-- 
-    <a class="twitter-share-button"
-    href="https://twitter.com/intent/tweet?text=Check%20out%20my%20Showtell!">
-Tweet</a>
-</div> -->
-
-
-
-
+      <button id="controller" class="button music"></button>
+      </div>
+  </div>
+     
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
 <script>
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
 var audioplayer = new Audio("http://datashat.net/music_for_programming_1-datassette.mp3");
 $('#controller').on("click", function () {
   if (audioplayer.paused) {
@@ -179,18 +169,6 @@ function drawClusterForceLayout(data) {
     .enter().append("circle")
       .style("fill", function(d) { return color(d.category_name);})
       .call(force.drag);
-
-    //   if d.question_text === "RELATIONSHIPS": //need to query for category name when creating cs
-    //   return "red"
-    // if d.question_text === "CULTURE":
-    //   return "blue"
-    // if d.question_text === "IDENTITY":
-    //   return "green"
-    // if d.question_text === "ASPIRATION":
-    //   return "yellow"
-    // if d.question_text === "FUN":
-    //   return "orange"
-
      
 
   node.transition()

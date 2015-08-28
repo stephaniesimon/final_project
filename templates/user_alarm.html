@@ -34,38 +34,27 @@
     <div class="text-center">
   <form id="visualization-button-form" action="/visualize" method="GET">
    <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
-  <input type="submit" class="button visualize" value="🌈"></input>
+  <input type="submit" class="button visualize" value="🌈" style="font-size:20px"></input>
   </form>
 </div>
 </div>
-
-  
-
-
-  
-  
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="/static/js/lib/recorder.js"></script>
 <script>
 
  $("#submit_answer").click(function() {
-    $.get('/next_question', function (data){
-
-      console.log(data);
-      $('#question_text').html(data);
-    });
+  $.get("/next_question", function(data) {
+    console.log(data);
+    $("#question_text").html(data);
+  });
 });
-
-
- $("#next_question").click(function() {
-    $.get('/refresh_question', function (data){
-
-      console.log(data);
-      $('#question_text').html(data);
-    })
+$("#next_question").click(function() {
+  $.get("/refresh_question", function(data) {
+    console.log(data);
+    $("#question_text").html(data);
+  });
 });
-
 
  var audio_context;
   var recorder;
