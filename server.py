@@ -1,5 +1,5 @@
 
-"""showtell server"""
+"""show+tell server"""
 
 
 from cStringIO import StringIO
@@ -20,7 +20,6 @@ from boto.s3.key import Key
 import time
 
 
-
 # s3 connection and bucket definition
 c = boto.connect_s3()
 b = c.get_bucket('boto-demo-1438909409')
@@ -31,13 +30,10 @@ ALLOWED_EXTENSIONS = set(['wav'])
 
 # from flask_debugtoolbar import DebugToolbarExtension
 
-
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = "ABC"
-
-
 
 app.jinja_env.undefined = StrictUndefined
 
@@ -110,8 +106,7 @@ def login_process():
 
 @app.route("/users/<int:user_id>", methods=['GET'])
 def user_profile(user_id):
-    """User's timer profile"""
-
+    """User's question profile."""
 
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
@@ -124,7 +119,7 @@ def user_profile(user_id):
 
 @app.route("/next_question")
 def show_next_question():
-    """Show next question for user to answer when they click "Another question"""
+    """Show user next question and changes session question id."""
 
     question_text, question_id = get_next_question_text()
     session["next_question_id"] = question_id
@@ -133,7 +128,7 @@ def show_next_question():
 
 @app.route("/refresh_question")
 def refresh_question():
-    """Show next question for user to answer when they click "Another question"""
+    """Show user next question without changing session question id."""
 
     question_text, question_id = get_next_question_text()
     session["question_id"] = question_id
@@ -141,7 +136,7 @@ def refresh_question():
     return question_text
 
 def get_next_question_text():
-    """Show next question text"""
+    """Return randomized question text"""
 
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
@@ -153,7 +148,8 @@ def get_next_question_text():
 
 @app.route("/save_recording", methods=['POST',])
 def save_file():
-    """Name and save audio file to S3"""
+    """Name and save audio file to S3."""
+
     if request.method == 'POST':
         file = request.files['file']
         filename = secure_filename('%s' % int(time.time()) + '.wav')
@@ -181,7 +177,7 @@ def save_file():
 
 @app.route("/visualization_process.csv", methods=['GET',])
 def process_csv():
-    """Process d3 visualization of user's answers"""
+    """Create in-memory csv file for visualization"""
   
     outfile = StringIO()
     outcsv = csv.writer(outfile)
@@ -194,7 +190,6 @@ def process_csv():
     
     outcsv.writerow(["user_id","question_id","file_path", "file_size", "question_text", "category_name"])
     
-
     outcsv.writerows(results.all())
 
     outfile.seek(0)
