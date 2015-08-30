@@ -4,40 +4,33 @@
 
 <section class="section" id="head">
   <div class="container">
-
-    <div class="row">
+   <div class="row">
       <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
-<h1>Hi, {{ user.first_name }}!</h1> 
- <h3 class="tagline">
+        <h1>Hi, {{ user.first_name }}!</h1> 
+        <h3 class="tagline">
           Answer fun questions about yourself!<br>
           When you've answered a few, click the 🌈 to see them come to life.
         </h3>
+        <span><h2 id="question_text">{{ question_text }}</h2>
+        <button id="next_question" class="next-question"></button></span>
+        <br><br>
+      </div>
   
+    <div class="row">
+      <div class="text-center">
+        <button onclick="startRecording(this);" class="button record"></button>
+        <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
+      </div>
+    </div>
   
-  
- <span><h2 id="question_text">{{ question_text }}</h2>
-  <button id="next_question" class="next-question"></button></span>
-  <br><br>
-
-</div>
-  
-  <div class="row">
-    <div class="text-center">
-    
-  <button onclick="startRecording(this);" class="button record"></button>
-  <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
-  </div>
-</div>
-  
-
-  <div class="row">
-    <div class="text-center">
-  <form id="visualization-button-form" action="/visualize" method="GET">
-   <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
-  <input type="submit" class="button visualize" value="🌈" style="font-size:30px"></input>
-  </form>
-</div>
-</div>
+    <div class="row">
+      <div class="text-center">
+        <form id="visualization-button-form" action="/visualize" method="GET">
+          <!--  <input type="hidden" name="user_id" value="{{ user.user_id}}"> -->
+          <input type="submit" class="button visualize" value="🌈" style="font-size:30px"></input>
+        </form>
+      </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="/static/js/lib/recorder.js"></script>
@@ -141,5 +134,3 @@ $("#next_question").click(function() {
 
   <script src="/static/js/lib/recorder.js"></script>
   {% endblock %}
-
- 

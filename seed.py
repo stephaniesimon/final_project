@@ -21,10 +21,8 @@ def load_categories():
     db.session.commit()
 
 
-
 def load_questions():
     """Load questions into database."""
-
 
     with open("seed_data/seed.txt") as f:
         for line in f:
