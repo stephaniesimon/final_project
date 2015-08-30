@@ -2,13 +2,12 @@ import os
 import unittest
 
 from server import app
-from model import User
-from model import connect_to_db
+from model import db, User
 import seed
+from sqlalchemy import exc
 
 
 class TestCase (unittest.TestCase):
-	
 	def setUp(self):
 		"""Set up a testing db"""
 
@@ -30,11 +29,11 @@ class TestCase (unittest.TestCase):
     # ==============================================================================
 
 	def test_user(self):
-        # Make a user
-        u = User(first_name='John', email='jsmith@example.com', password='test')
-        db.session.add(u)
-        db.session.commit()
-        self.assertEqual(u.first_name, 'John')
+
+	    u = User(first_name='John', email='jsmith@example.com', password='test') # Make a user
+	    db.session.add(u)
+	    db.session.commit()
+	    self.assertEqual(u.first_name, 'John')
 
         # Duplicate critical information
         u = User(first_name='Jane', email='jsmith@example.com', password='test')
@@ -50,20 +49,22 @@ class TestCase (unittest.TestCase):
             db.session.commit()
         db.session.rollback()
 
-    # ==============================================================================
-    # Testing Login/Logout Views
-    # ==============================================================================
+# ==============================================================================
+# Testing Login/Logout Views
+# ==============================================================================
 
-    def login(self, email, password):
-        return self.app.post('/login', data=dict(
-            email=email,
-            password=password
-        ), follow_redirects=True)
+def login(self, email, password):
+    return self.app.post('/login', data=dict(
+    							email=email,
+    							password=password
+    							), follow_redirects=True)
 
     def logout(self):
-        return self.app.get('/logout', follow_redirects=True)
+
+    	return self.app.get('/logout', follow_redirects=True)
 
     def test_login_logout(self):
+
         u = User(first_name='John', email='jsmith@example.com', password='test')
         db.session.add(u)
         db.session.commit()
@@ -84,15 +85,3 @@ class TestCase (unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-	
-		
-
-
-
-def test_load_categories:
-	assert 
