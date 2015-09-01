@@ -22,7 +22,7 @@ show+tell marries my interest in storytelling, podcasts, database work and front
 
 The user registers or logs in (and can play with a cool Force Layout d3 vis).
 
-The user is shown interesting personality questions to answer - sourced from Proust and various online sources. She can skip through them until finding one she's like to make a recording for.
+Interesting personality questions are shown for the user to answer - sourced from Proust and various other sources. The user can skip through them until finding one they'd like to make a recording for.
 
 <img src="/static/images/readme/readme_profile.png" alt="show+tell profile">
 
