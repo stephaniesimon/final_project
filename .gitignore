@@ -1,1 +1,6 @@
 .boto
+env/
+*.pyc
+*.db
+*.DS_Store
+*.csv
