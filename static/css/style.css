@@ -38,6 +38,12 @@ h2 {
 #cursive {
 	font-family: 'Reenie Beanie';
 	font-size: 35px;
+	color:#7D8A8F;
+}
+
+h5 {
+	font-family: 'Lato', 100;
+	color:#5F606B;
 }
 
 /********************************************************/
@@ -436,11 +442,19 @@ html, body{
 			text-shadow:0px 0px 6px #DBDB8D;
 		}
 
+		
+		.music {
+			height:50px;
+			width:50px;
+			margin-bottom: 40px;
+		}
+
 		.music:after {
 			content: "♫";
-			font-size: 40px;
-			top:28px;
-			left:-17px;
+			font-size: 30px;
+			top:15px;
+			left:-28px;
+
 		}
 		
 		.music:hover:after{
@@ -490,9 +504,9 @@ html, body{
 
 		}
 
-.twitter-share-button {
+/*.twitter-share-button {
 	float: right;
-}
+}*/
 
 /*.container {
 	background-image: svg;
