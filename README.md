@@ -30,7 +30,7 @@ On the web interface, show+tell uses the **Recorder.js** and **HTML5 Web Audio A
 
 After the audio file is created, the blob is sent to the server and converted into a WAV file. It's given a file name and stored in an **Amazon S3 bucket**.
 
-When the user is ready to view their visualization, a in-memory csv file is created using **StringIO** and used by the **d3.csv** function to render the user's visualization.
+When the user is ready to view their visualization, an in-memory csv file is created using **StringIO** and used by the **d3.csv** function to render the user's visualization.
 
 <img src="/static/images/readme/readme_vis.png" alt="show+tell vis">
 
