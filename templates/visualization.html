@@ -3,7 +3,8 @@
   
   <div class="row">
     <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center"> 
-      <h1>{{ user.first_name }}'s <small>audio journal</small></h1>
+      <h1>{{ user.first_name }}'s <span id="cursive">audio journal</span></h1>
+      <h5>(double-click a bubble to hear the answers!)</h5>
       <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out my show+tell!">Tweet</a>
       <svg></svg>
     </div>
@@ -96,7 +97,7 @@ function drawLegend(clusters, color) {
   });
 // })();
 
-$(document).on("click", 'svg circle', function(f){
+$(document).on("dblclick", 'svg circle', function(f){
     var d = this.__data__;
     var audio = new Audio(d.file_path);
     audio.play();

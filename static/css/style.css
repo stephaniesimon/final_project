@@ -28,10 +28,16 @@ body {
 h1 {
 	text-align : center;
 	font-color: #DBDBDB;
+	font-family: 'Lato', 700;
 }
 
 h2 {
 	margin-bottom: 20px;
+}
+
+#cursive {
+	font-family: 'Reenie Beanie';
+	font-size: 35px;
 }
 
 /********************************************************/
@@ -161,7 +167,7 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 }
 .subtitle { 
 	line-height:.9em;
-	font-size:2em;
+	font-size:1em;
 	margin-top:0;
 	margin-bottom:40px; 
 }
@@ -176,7 +182,13 @@ a:hover, a:active { color:#fff; text-decoration: underline; }
 @media (max-width: 767px) {
 	.lead { 
 		font-size:1.3em;
+		font-weight: bold;
 	}
+}
+
+#flippin {
+	color: #9467BD;
+	font-weight: 700;
 }
 
 
@@ -364,19 +376,28 @@ html, body{
 			text-shadow:0px 0px 6px #7C4BB8;
 		}
 
+		.rainbow {
+			border-radius: 0;
+			text-align: justify;
+			background: url(/static/images/rainbow.png);
+			margin: 0;
+			background-size: 100% 100%;
+    		background-repeat: no-repeat;
 
-		.visualize:after{
-			border-radius: none;
+		}
 
+/*		.visualize:after{
+			border-radius: 0%;
 
 		}
 
 		.visualize:hover:after{
-			color:#1F77B4;
+			
 			text-shadow:0px 0px 6px #1F77B4;
 			border-radius: none;
 
-		}
+
+		}*/
 
 		
 		.record {
@@ -449,6 +470,26 @@ html, body{
 			text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
 		}
 
+		.rainbow {
+			border-radius: 0;
+			text-align: justify;
+			background: url(/static/images/rainbow.png);
+			margin: 0;
+			background-size: 100% 100%;
+    		background-repeat: no-repeat;
+
+		}
+
+		.rainbow:hover {
+			border-radius: 0;
+			text-align: justify;
+			background: url(/static/images/rainbow.png);
+			margin: 0;
+			background-size: 100% 100%;
+    		background-repeat: no-repeat;
+
+		}
+
 .twitter-share-button {
 	float: right;
 }
@@ -458,4 +499,8 @@ html, body{
 
 }*/
 		
-
+/*#extending {
+	max-width: 10%;
+	float: right;
+}
+*/

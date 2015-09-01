@@ -19,7 +19,7 @@
 
 	<!-- Fonts -->
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href='http://fonts.googleapis.com/css?family=Lato:300|Reenie+Beanie' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:100italic,300,700|Reenie+Beanie' rel='stylesheet' type='text/css'>
 
 	<!-- Custom styles -->
 	<link rel="stylesheet" href="../static/css/style.css">
@@ -46,6 +46,10 @@
 		</div>
 	</div>
 </nav>
+<div id="extending">
+    {% for flash in get_flashed_messages() %}
+      <div class="alert alert-danger" style="width:90%; margin:0 auto;">{{ flash }}</div>
+    {% endfor %}
 
 
 {% block content %}

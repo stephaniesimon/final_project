@@ -66,8 +66,6 @@ def register_process():
     db.session.commit()
     
     session["user_id"] = new_user.user_id
-    flash("User %s added." % first_name)
-
     return redirect("/users/%s" % new_user.user_id)
 
     # return redirect("/")
@@ -99,8 +97,6 @@ def login_process():
 
     session["user_id"] = user.user_id
 
-
-    flash("Logged in")
     return redirect("users/%s" % user.user_id)
 
 
