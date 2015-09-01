@@ -86,10 +86,10 @@ class TestCase (unittest.TestCase):
         self.assertTrue('login' in rv.data)
 
         rv = self.login('jsmith@example.com', 'testb')
-        self.assertTrue('User name and password do not match' in rv.data)
+        self.assertTrue('Incorrect password' in rv.data)
 
         rv = self.login('jsmith2@example.com', 'test')
-        self.assertTrue('This email is not registered - please create an account' in rv.data) 
+        self.assertTrue('No such user' in rv.data) 
 
 
 
