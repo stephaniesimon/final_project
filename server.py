@@ -109,7 +109,6 @@ def user_profile(user_id):
     question_text = str(unformatted_question[0])
     question_id = unformatted_question[1]
     user = User.query.get(user_id)
-    session["question_id"] = question_id
 
     return render_template("user_alarm.html", user=user, question_text=question_text, question_id=question_id)
 
@@ -117,30 +116,13 @@ def user_profile(user_id):
 def show_next_question():
     """Show user next question and changes session question id."""
 
-    question_text, question_id = get_next_question_text()
-    session["next_question_id"] = question_id
-
-    return question_text
-
-@app.route("/refresh_question")
-def refresh_question():
-    """Show user next question without changing session question id."""
-
-    question_text, question_id = get_next_question_text()
-    session["question_id"] = question_id
-
-    return question_text
-
-def get_next_question_text():
-    """Return randomized question text"""
-
     all_questions = db.session.query(Question.question_text, Question.question_id).all()
     unformatted_question = random.choice(all_questions)
     question_text = str(unformatted_question[0])
     question_id = unformatted_question[1]
-    
 
-    return question_text, question_id
+    return jsonify(question_text=question_text, question_id=question_id)
+    
 
 @app.route("/save_recording", methods=['POST',])
 def save_file():
@@ -152,9 +134,8 @@ def save_file():
 
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         user_id = session["user_id"] 
-        question_id = session["question_id"]
+        question_id = request.form.get("question_id")
         new_recording = Recording(file_path=file_path, user_id=user_id, question_id=question_id)
-        
 
         db.session.add(new_recording)
         db.session.commit()
@@ -165,8 +146,6 @@ def save_file():
     file_size_for_audio = k.size
     new_recording.file_size = file_size_for_audio
     db.session.commit()
-
-    session["question_id"] = session.get("next_question_id")
 
     return "success"
 
@@ -216,7 +195,7 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
 
     # Do not debug for demo
-    app.debug = True
+    app.debug = False
 
 
     connect_to_db(app)

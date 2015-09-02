@@ -11,15 +11,15 @@
           Answer fun questions about yourself!<br>
           When you've answered a few, click the 🌈 to see them come to life.
         </h3>
-        <span><h2 id="question_text">{{ question_text }}</h2>
+        <span><h2 id="question_text" data-questionid="{{ question_id }}">{{ question_text }}</h2>
         <button id="next_question" class="next-question"></button></span>
         <br><br>
       </div>
   
     <div class="row">
       <div class="text-center">
-        <button onclick="startRecording(this);" class="button record"></button>
-        <button id="submit_answer" onclick="stopRecording(this);" disabled class="button submit"></button>
+        <button id="record_button" onclick="startRecording(this);" class="button record"></button>
+        <button id="submit_answer" disabled class="button submit"></button>
       </div>
     </div>
   
@@ -37,41 +37,44 @@
 <script>
 
  $("#submit_answer").click(function() {
-  $.get("/next_question", function(data) {
-    console.log(data);
-    $("#question_text").html(data);
-  });
-});
-$("#next_question").click(function() {
-  $.get("/refresh_question", function(data) {
-    console.log(data);
-    $("#question_text").html(data);
-  });
-});
+    stopRecording(this);
 
- var audio_context;
+  });
+
+  $("#next_question").click(function() {
+    getNextQuestion();
+  });
+
+
+  var audio_context;
   var recorder;
 
   function startUserMedia(stream) {
-    console.log("I'm the startUserMedia func");
     var input = audio_context.createMediaStreamSource(stream);
     
     recorder = new Recorder(input);
-    console.log("create recorder object");
     
+  }
+
+  function getNextQuestion() {
+    $.get("/next_question", function(data) {
+      $("#question_text").html(data.question_text);
+      $("#question_text").data("questionid", data.question_id);
+    });
   }
 
   function startRecording(button) {
     recorder && recorder.record();
     button.disabled = true;
     button.nextElementSibling.disabled = false;
-    console.log("enter data into recorder");
+    $("#next_question").attr("disabled", true);
   }
 
   function stopRecording(button) {
     recorder && recorder.stop();
     button.disabled = true;
-    button.previousElementSibling.disabled = false;
+    console.log($("#next_question"));
+    
     // __log('Stopped recording.');
     
     // create WAV download link using audio data blob
@@ -79,6 +82,7 @@ $("#next_question").click(function() {
     // sendQuestionTextToServer();
     console.log(recorder);
     recorder.clear();
+
   }
 
 
@@ -86,8 +90,10 @@ $("#next_question").click(function() {
       recorder && recorder.exportWAV(function (blob) {
         console.log(blob);
         var formData = new FormData();
-
+        var questionId = $("#question_text").data("questionid");
+        getNextQuestion();
         formData.append('file', blob, 'test.wav');
+        formData.append('question_id', questionId);
 
         $.ajax({
         url :  "/save_recording",
@@ -97,9 +103,13 @@ $("#next_question").click(function() {
         processData: false,
         success: function(data) {
           console.log("success!");
+          $("#next_question").attr("disabled", false);
+          $("#record_button").attr("disabled", false);
         },    
         error: function() {
           console.log("failure!");
+          $("#record_button").attr("disabled", false);
+          $("#next_question").attr("disabled", false);
         }
       });
 
@@ -108,7 +118,6 @@ $("#next_question").click(function() {
     }
 
   window.onload = function init() {
-    console.log("is onload running");
     try {
       // webkit shim
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
