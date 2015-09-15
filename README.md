@@ -1,6 +1,6 @@
 # show+tell
 
-show+tell is an interactive audio journal built by <a href="http://linkedin.com/in/stephsimon" target="_blank">Stephanie Simon</a>. Send a request to your grandmother to record her coveted family recipes, generate and edit the transcripts, and create a recipe book instantly.
+show+tell is an interactive audio journal built by <a href="http://linkedin.com/in/stephsimon" target="_blank">Stephanie Simon</a>.
 
 <img src="/static/images/readme/readme_hp2.png" alt="show+tell homepage">
 
